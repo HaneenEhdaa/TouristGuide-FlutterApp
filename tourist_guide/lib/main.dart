@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tourist_guide/views/auth/signup.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,12 +12,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blueAccent,
-          title: Text("Hello"),
-        ),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        fontFamily: 'Suwannaphum',
       ),
+      home: Signup(),
     );
   }
 }
