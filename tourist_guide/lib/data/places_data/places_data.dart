@@ -3,53 +3,65 @@ import 'package:tourist_guide/data/models/landmark_model.dart';
 class PlacesData {
   static List<LandMark> kLandmarks = [
     LandMark(
-      id: '0',
-      imgPath: 'assets/images/card_bg.png',
-      name: 'Place 1',
-      governorate: 'Gocernorate 1',
-      rate: '5.0',
-      fav: false,
-    ),
+        id: '0',
+        imgPath: 'assets/images/card_bg.png',
+        name: 'Place 1',
+        governorate: 'Gocernorate 1',
+        rate: '5.0',
+        fav: false,
+        description: '''
+This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...
+'''),
     LandMark(
-      id: '1',
-      imgPath: 'assets/images/card_bg.png',
-      name: 'Place 2',
-      governorate: 'Governorate 2',
-      rate: '5.0',
-      fav: false,
-    ),
+        id: '1',
+        imgPath: 'assets/images/card_bg.png',
+        name: 'Place 2',
+        governorate: 'Governorate 2',
+        rate: '5.0',
+        fav: false,
+        description: '''
+This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...
+'''),
     LandMark(
-      id: '2',
-      imgPath: 'assets/images/card_bg.png',
-      name: 'Place 3',
-      governorate: 'Governorate 3',
-      rate: '4.8',
-      fav: false,
-    ),
+        id: '2',
+        imgPath: 'assets/images/card_bg.png',
+        name: 'Place 3',
+        governorate: 'Governorate 3',
+        rate: '4.8',
+        fav: false,
+        description: '''
+This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...
+'''),
     LandMark(
-      id: '3',
-      imgPath: 'assets/images/card_bg.png',
-      name: 'Place 4',
-      governorate: 'Governorate 4',
-      rate: '4.9',
-      fav: false,
-    ),
+        id: '3',
+        imgPath: 'assets/images/card_bg.png',
+        name: 'Place 4',
+        governorate: 'Governorate 4',
+        rate: '4.9',
+        fav: false,
+        description: '''
+This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...
+'''),
     LandMark(
-      id: '4',
-      imgPath: 'assets/images/card_bg.png',
-      name: 'Place 5',
-      governorate: 'Governorate 5',
-      rate: '4.9',
-      fav: false,
-    ),
+        id: '4',
+        imgPath: 'assets/images/card_bg.png',
+        name: 'Place 5',
+        governorate: 'Governorate 5',
+        rate: '4.9',
+        fav: false,
+        description: '''
+This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...
+'''),
     LandMark(
-      id: '5',
-      imgPath: 'assets/images/card_bg.png',
-      name: 'Place 6',
-      governorate: 'Governorate 6',
-      rate: '4.9',
-      fav: false,
-    ),
+        id: '5',
+        imgPath: 'assets/images/card_bg.png',
+        name: 'Place 6',
+        governorate: 'Governorate 6',
+        rate: '4.9',
+        fav: false,
+        description: '''
+This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...
+'''),
   ];
 
   List<LandMark> suggestedPlaces() {

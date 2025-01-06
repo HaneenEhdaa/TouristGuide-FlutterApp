@@ -5,7 +5,7 @@ class LandMark {
   late String governorate;
   late String rate;
   late bool fav;
-
+  late String? description;
 // Constructor to create a Place object from a list of shared preferences data.
   LandMark({
     required this.id,
@@ -14,6 +14,7 @@ class LandMark {
     required this.governorate,
     required this.rate,
     required this.fav,
+    this.description
   });
 
 // Maps the data fields like name, governorate, rate, and fav from the list.

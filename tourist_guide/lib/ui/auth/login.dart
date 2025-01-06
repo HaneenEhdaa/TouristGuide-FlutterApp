@@ -199,16 +199,16 @@ class _LoginState extends State<Login> {
 
         if (!mounted) return;
 
-        // Show personalized success message
-        CustomSnackBar.showCustom(
-          context: context,
-          message: 'Welcome back, ${user['name']}! 👋',
-          backgroundColor: kMainColor,
-          icon: Icons.celebration,
-          duration: const Duration(seconds: 2),
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        );
+        // // Show personalized success message
+        // CustomSnackBar.showCustom(
+        //   context: context,
+        //   message: 'Welcome back, ${user['name']}! 👋',
+        //   backgroundColor: kMainColor,
+        //   icon: Icons.celebration,
+        //   duration: const Duration(seconds: 2),
+        //   fontSize: 18,
+        //   fontWeight: FontWeight.bold,
+        // );
 
         await Future.delayed(const Duration(milliseconds: 800));
 

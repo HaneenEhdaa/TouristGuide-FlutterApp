@@ -5,8 +5,12 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Details Screen'),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text('Title'),
+      ),
+      body: Container(),
     );
   }
 }
