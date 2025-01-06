@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.example.tourist_guide"
-    compileSdk = 35
+    compileSdk = 34
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
