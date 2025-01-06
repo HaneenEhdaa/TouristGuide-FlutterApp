@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tourist_guide/core/utils/size_config.dart';
+import 'package:tourist_guide/ui/home/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,14 +11,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blueAccent,
-          title: Text("Hello"),
-        ),
-      ),
+      home: const HomeScreen(),
     );
   }
 }
