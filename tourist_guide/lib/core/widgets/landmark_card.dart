@@ -103,13 +103,13 @@ class _LandmarkCardState extends State<LandmarkCard> {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: Container(
-        height: SizeConfig.defaultSize! * 6,
+        height: SizeConfig.defaultSize! * 7,
         width: SizeConfig.screenWidth! - 12,
         decoration: detailsBoxTheme(15),
         padding: const EdgeInsets.all(8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
               name,
