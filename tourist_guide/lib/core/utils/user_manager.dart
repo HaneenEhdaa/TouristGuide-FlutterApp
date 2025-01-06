@@ -33,7 +33,8 @@ class UserManager {
       final prefs = await SharedPreferences.getInstance();
       List<Map<String, dynamic>> usersList = await getAllUsers();
 
-      final index = usersList.indexWhere((user) => user['id'] == updatedUser['id']);
+      final index =
+          usersList.indexWhere((user) => user['id'] == updatedUser['id']);
       if (index != -1) {
         usersList[index] = updatedUser;
         await prefs.setString(USERS_KEY, json.encode(usersList));

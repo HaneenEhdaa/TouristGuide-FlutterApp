@@ -4,13 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tourist_guide/core/colors/colors.dart';
-import 'package:tourist_guide/views/auth/login.dart';
-import 'package:tourist_guide/views/auth/signup.dart';
+import 'package:tourist_guide/ui/auth/login.dart';
 
-import '../home.dart';
-import '../widgets/custom_button.dart';
-import '../widgets/custom_snack_bar.dart';
-import '../widgets/custom_text_form_field.dart';
+import '../../core/widgets/custom_button.dart';
+import '../../core/widgets/custom_snack_bar.dart';
+import '../../core/widgets/custom_text_form_field.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -27,7 +25,6 @@ class _Signup extends State<Signup> {
   final _confirmPasswordController = TextEditingController();
   final _phoneNumberController = TextEditingController();
   @override
-
   void dispose() {
     // Clean up the controller when the widget is removed from the widget tree
     _nameController.dispose();
@@ -37,6 +34,7 @@ class _Signup extends State<Signup> {
     _phoneNumberController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     // Get screen dimensions
@@ -50,7 +48,7 @@ class _Signup extends State<Signup> {
     final buttonHeight = screenHeight * 0.08; // 8% of screen height
 
     return Scaffold(
-  backgroundColor: Colors.white,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -145,19 +143,25 @@ class _Signup extends State<Signup> {
                     width: screenWidth * 0.9,
                     // 90% of screen width
                   ),
-                  SizedBox(height: verticalSpacing*1.5),
+                  SizedBox(height: verticalSpacing * 1.5),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Have an account?',style: TextStyle(color: Colors.black),),
-                      GestureDetector(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
-                          },
-                          child:
-                          Text('  Log in',style: TextStyle(color: kMainColor),
-                          )
+                      Text(
+                        'Have an account?',
+                        style: TextStyle(color: Colors.black),
                       ),
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Login()));
+                          },
+                          child: Text(
+                            '  Log in',
+                            style: TextStyle(color: kMainColor),
+                          )),
                     ],
                   ),
                 ],
@@ -168,6 +172,7 @@ class _Signup extends State<Signup> {
       ),
     );
   }
+
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
@@ -181,12 +186,12 @@ class _Signup extends State<Signup> {
 
         if (existingUsersString != null) {
           // Parse existing users
-          usersList = List<Map<String, dynamic>>.from(
-              json.decode(existingUsersString)
-          );
+          usersList =
+              List<Map<String, dynamic>>.from(json.decode(existingUsersString));
 
           // Check for duplicate email
-          if (usersList.any((user) => user['email'].toString().toLowerCase() ==
+          if (usersList.any((user) =>
+              user['email'].toString().toLowerCase() ==
               _emailController.text.toLowerCase())) {
             if (!mounted) return;
 
@@ -195,7 +200,8 @@ class _Signup extends State<Signup> {
               message: 'This email is already registered',
             );
             return;
-          }else if (usersList.any((user) => user['phone'].toString().toLowerCase() ==
+          } else if (usersList.any((user) =>
+              user['phone'].toString().toLowerCase() ==
               _phoneNumberController.text.toLowerCase())) {
             if (!mounted) return;
 
@@ -242,7 +248,6 @@ class _Signup extends State<Signup> {
             builder: (context) => const Login(),
           ),
         );
-
       } catch (e) {
         print('Error during registration: $e');
         CustomSnackBar.showError(

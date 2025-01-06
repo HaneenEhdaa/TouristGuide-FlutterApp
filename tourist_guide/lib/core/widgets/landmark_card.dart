@@ -49,7 +49,7 @@ class _LandmarkCardState extends State<LandmarkCard> {
   Widget _cardImg(String imgPath) {
     return InkWell(
       onTap: () {
-        // Get.toNamed('/details', arguments: widget.place);
+        Navigator.pushNamed(context, '/details', arguments: widget.place);
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
@@ -100,12 +100,10 @@ class _LandmarkCardState extends State<LandmarkCard> {
 // Displays the name, governorate, and rating of the place in a card format,
 // with appropriate icons for location and rating.
   Widget _aboutPlace(String name, String gov, String rate) {
-    debugPrint('name: $name, gov: $gov, rate: $rate');
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: Container(
         height: SizeConfig.defaultSize! * 6,
-        // width: SizeConfig.defaultSize! * 22,
         width: SizeConfig.screenWidth! - 12,
         decoration: detailsBoxTheme(15),
         padding: const EdgeInsets.all(8),

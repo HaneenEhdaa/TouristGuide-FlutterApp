@@ -3,6 +3,7 @@ import 'package:tourist_guide/core/colors/colors.dart';
 import 'package:tourist_guide/core/utils/size_config.dart';
 import 'package:tourist_guide/core/widgets/landmark_card.dart';
 import 'package:tourist_guide/data/models/landmark_model.dart';
+import 'package:tourist_guide/data/places_data/places_data.dart';
 
 class PlacesScreen extends StatelessWidget {
   const PlacesScreen({super.key});
@@ -145,13 +146,13 @@ class PlacesScreen extends StatelessWidget {
           Expanded(
             child: GridView.builder(
               padding: EdgeInsets.zero,
-              itemCount: kLandmarks.length ~/ 2,
+              itemCount: PlacesData().suggestedPlaces().length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: 0.67,
               ),
               itemBuilder: (context, index) =>
-                  LandmarkCard(place: kLandmarks[index]),
+                  LandmarkCard(place: PlacesData().suggestedPlaces()[index]),
             ),
           ),
         ],
@@ -162,7 +163,6 @@ class PlacesScreen extends StatelessWidget {
 // Displays a list of popular places (which is the reverse order of kPlaces) in
 // a horizontal scrolling list. The PlaceCard widget is used for each place in the list.
   Widget _popularPlaces() {
-    List<LandMark> popularPlaces = kLandmarks.reversed.toList();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -181,9 +181,9 @@ class PlacesScreen extends StatelessWidget {
           width: double.infinity,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: (kLandmarks.length) - (kLandmarks.length ~/ 2),
+            itemCount: PlacesData().popularPlaces().length,
             itemBuilder: (context, index) {
-              return LandmarkCard(place: popularPlaces[index]);
+              return LandmarkCard(place: PlacesData().popularPlaces()[index]);
             },
           ),
         ),

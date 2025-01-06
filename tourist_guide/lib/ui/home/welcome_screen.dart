@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tourist_guide/core/colors/colors.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +35,9 @@ class HomePage extends StatelessWidget {
                 ),
                 SizedBox(height: 32),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, '/home');
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: kMainColor,
                     padding: EdgeInsets.symmetric(

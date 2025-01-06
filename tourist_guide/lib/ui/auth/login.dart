@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tourist_guide/views/auth/signup.dart';
-import 'package:tourist_guide/views/home.dart';
+import 'package:tourist_guide/core/widgets/custom_button.dart';
+import 'package:tourist_guide/core/widgets/custom_snack_bar.dart';
+import 'package:tourist_guide/core/widgets/custom_text_form_field.dart';
+import 'package:tourist_guide/ui/auth/signup.dart';
+import 'package:tourist_guide/ui/home/welcome_screen.dart';
 
 import '../../core/colors/colors.dart';
-import '../widgets/custom_button.dart';
-import '../widgets/custom_snack_bar.dart';
-import '../widgets/custom_text_form_field.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -29,8 +29,8 @@ class _LoginState extends State<Login> {
     super.initState();
     checkStoredData(); // This will print all stored data
   }
-  @override
 
+  @override
   void dispose() {
     // Clean up the controller when the widget is removed from the widget tree
     _nameController.dispose();
@@ -39,6 +39,7 @@ class _LoginState extends State<Login> {
     _confirmPasswordController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     // Get screen dimensions
@@ -121,19 +122,22 @@ class _LoginState extends State<Login> {
                     height: buttonHeight,
                     width: screenWidth * 0.9, // 90% of screen width
                   ),
-                  SizedBox(height: verticalSpacing*1.5),
+                  SizedBox(height: verticalSpacing * 1.5),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text('Don\'t have an account?'),
                       GestureDetector(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>Signup()));
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Signup()));
                           },
-                          child:
-                          Text('  Sign Up',style: TextStyle(color: kMainColor),
-                          )
-                      ),
+                          child: Text(
+                            '  Sign Up',
+                            style: TextStyle(color: kMainColor),
+                          )),
                     ],
                   ),
                 ],
@@ -144,6 +148,7 @@ class _LoginState extends State<Login> {
       ),
     );
   }
+
   Future<void> _login() async {
     if (_formKey.currentState!.validate()) {
       try {
@@ -169,13 +174,13 @@ class _LoginState extends State<Login> {
           return;
         }
 
-        List<Map<String, dynamic>> usersList = List<Map<String, dynamic>>.from(
-            json.decode(usersString)
-        );
+        List<Map<String, dynamic>> usersList =
+            List<Map<String, dynamic>>.from(json.decode(usersString));
 
         final user = usersList.firstWhere(
-              (user) =>
-          user['email'].toString().toLowerCase() == _emailController.text.toLowerCase() &&
+          (user) =>
+              user['email'].toString().toLowerCase() ==
+                  _emailController.text.toLowerCase() &&
               user['password'] == _passwordController.text,
           orElse: () => {},
         );
@@ -211,10 +216,9 @@ class _LoginState extends State<Login> {
 
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => const HomePage(),
+            builder: (context) => const WelcomeScreen(),
           ),
         );
-
       } catch (e) {
         CustomSnackBar.showCustom(
           context: context,
@@ -246,6 +250,7 @@ class _LoginState extends State<Login> {
     print('IsRegistered: ${prefs.getBool('isRegistered')}');
     print('IsLoggedIn: ${prefs.getBool('isLoggedIn')}');
   }
+
   Future<Map<String, dynamic>?> getCurrentUser() async {
     final prefs = await SharedPreferences.getInstance();
     final currentUserString = prefs.getString('currentUser');

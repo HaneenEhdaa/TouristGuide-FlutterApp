@@ -1,7 +1,10 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:tourist_guide/core/colors/colors.dart';
+import 'package:tourist_guide/ui/landmarks/fav_screen.dart';
+import 'package:tourist_guide/ui/landmarks/govs_screen.dart';
 import 'package:tourist_guide/ui/landmarks/places_screen.dart';
+import 'package:tourist_guide/ui/profile/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -32,9 +35,9 @@ class _HomeScreenState extends State<HomeScreen> {
       physics: const NeverScrollableScrollPhysics(),
       children: const [
         PlacesScreen(),
-        // GovScreen(),
-        // FavScreen(),
-        // ProfileScreen()
+        GovernmentsScreen(),
+        FavoritesScreen(),
+        ProfileScreen(),
       ],
     );
   }
