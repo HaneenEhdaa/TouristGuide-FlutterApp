@@ -69,27 +69,29 @@ class _LandmarkCardState extends State<LandmarkCard> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        const Expanded(child: SizedBox()),
+        // const Expanded(child: SizedBox()),
         ClipOval(
           child: Container(
             width: SizeConfig.defaultSize! * 4,
             height: SizeConfig.defaultSize! * 4,
             decoration: detailsBoxTheme(15),
-            child: IconButton(
-              icon: Icon(
-                fav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
-                size: 25,
+            child: Center(
+              child: IconButton(
+                icon: Icon(
+                  fav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+                  size: SizeConfig.defaultSize! * 2.5,
+                ),
+                color: kMainColor,
+                onPressed: () {
+                  // setState(() {
+                  //   kPlaces[int.parse(placeId)].fav = !fav;
+                  //   //
+                  //   List<String> favPlaces = SharedPrefs().getFavPlaces();
+                  //   !fav ? favPlaces.add(placeId) : favPlaces.remove(placeId);
+                  //   SharedPrefs().setFavPlaces(ids: favPlaces);
+                  // });
+                },
               ),
-              color: kMainColor,
-              onPressed: () {
-                // setState(() {
-                //   kPlaces[int.parse(placeId)].fav = !fav;
-                //   //
-                //   List<String> favPlaces = SharedPrefs().getFavPlaces();
-                //   !fav ? favPlaces.add(placeId) : favPlaces.remove(placeId);
-                //   SharedPrefs().setFavPlaces(ids: favPlaces);
-                // });
-              },
             ),
           ),
         ),
@@ -113,8 +115,8 @@ class _LandmarkCardState extends State<LandmarkCard> {
           children: [
             Text(
               name,
-              style: const TextStyle(
-                fontSize: 18,
+              style: TextStyle(
+                fontSize: SizeConfig.defaultSize! * 1.6,
                 fontWeight: FontWeight.bold,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -125,17 +127,17 @@ class _LandmarkCardState extends State<LandmarkCard> {
                 Flexible(
                   child: Row(
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.place_rounded,
                         color: kLightBlack,
-                        size: 18,
+                        size: SizeConfig.defaultSize! * 1.4,
                       ),
                       const SizedBox(width: 4),
                       Expanded(
                         child: Text(
                           gov,
-                          style: const TextStyle(
-                            fontSize: 14,
+                          style: TextStyle(
+                            fontSize: SizeConfig.defaultSize! * 1.4,
                             color: kLightBlack,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -154,7 +156,10 @@ class _LandmarkCardState extends State<LandmarkCard> {
                     const SizedBox(width: 4),
                     Text(
                       rate,
-                      style: const TextStyle(fontSize: 18, color: kLightBlack),
+                      style: TextStyle(
+                        fontSize: SizeConfig.defaultSize! * 1.4,
+                        color: kLightBlack,
+                      ),
                     ),
                   ],
                 )

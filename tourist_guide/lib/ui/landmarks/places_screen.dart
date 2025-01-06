@@ -2,62 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:tourist_guide/core/colors/colors.dart';
 import 'package:tourist_guide/core/utils/size_config.dart';
 import 'package:tourist_guide/core/widgets/landmark_card.dart';
-import 'package:tourist_guide/data/models/landmark_model.dart';
 import 'package:tourist_guide/data/places_data/places_data.dart';
 
 class PlacesScreen extends StatelessWidget {
   const PlacesScreen({super.key});
-
-  static List<LandMark> kLandmarks = [
-    LandMark(
-      id: '0',
-      imgPath: 'assets/images/card_bg.png',
-      name: 'Place 1',
-      governorate: 'Gocernorate 1',
-      rate: '5.0',
-      fav: false,
-    ),
-    LandMark(
-      id: '1',
-      imgPath: 'assets/images/card_bg.png',
-      name: 'Place 2',
-      governorate: 'Governorate 2',
-      rate: '5.0',
-      fav: false,
-    ),
-    LandMark(
-      id: '2',
-      imgPath: 'assets/images/card_bg.png',
-      name: 'Place 3',
-      governorate: 'Governorate 3',
-      rate: '4.8',
-      fav: false,
-    ),
-    LandMark(
-      id: '3',
-      imgPath: 'assets/images/card_bg.png',
-      name: 'Place 4',
-      governorate: 'Governorate 4',
-      rate: '4.9',
-      fav: false,
-    ),
-    LandMark(
-      id: '4',
-      imgPath: 'assets/images/card_bg.png',
-      name: 'Place 5',
-      governorate: 'Governorate 5',
-      rate: '4.9',
-      fav: false,
-    ),
-    LandMark(
-      id: '5',
-      imgPath: 'assets/images/card_bg.png',
-      name: 'Place 6',
-      governorate: 'Governorate 6',
-      rate: '4.9',
-      fav: false,
-    ),
-  ];
 
 // The main UI of the PlacesScreen is built with padding and two main components:
 // the header and body. The header displays a personalized greeting, and the body
@@ -86,15 +34,18 @@ class PlacesScreen extends StatelessWidget {
             children: [
               Text(
                 'Hi, User 👋',
-                style: const TextStyle(
-                  fontSize: 22,
+                style: TextStyle(
+                  fontSize: SizeConfig.defaultSize! * 2.2,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               SizeConfig().vSpace(0.5),
               Text(
                 'Discover best places to go to vacation 😍',
-                style: const TextStyle(fontSize: 16, color: kLightBlack),
+                style: TextStyle(
+                  fontSize: SizeConfig.defaultSize! * 1.6,
+                  color: kLightBlack,
+                ),
               ),
             ],
           ),
@@ -134,11 +85,11 @@ class PlacesScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizeConfig().vSpace(2),
+          SizeConfig().vSpace(1),
           Text(
             'Suggested Places',
-            style: const TextStyle(
-              fontSize: 18,
+            style: TextStyle(
+              fontSize: SizeConfig.defaultSize! * 1.8,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -147,9 +98,9 @@ class PlacesScreen extends StatelessWidget {
             child: GridView.builder(
               padding: EdgeInsets.zero,
               itemCount: PlacesData().suggestedPlaces().length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: 0.67,
+                childAspectRatio: SizeConfig.defaultSize! * 0.067,
               ),
               itemBuilder: (context, index) =>
                   LandmarkCard(place: PlacesData().suggestedPlaces()[index]),
@@ -167,17 +118,17 @@ class PlacesScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        SizeConfig().vSpace(2),
+        SizeConfig().vSpace(1),
         Text(
           'Popular Places',
-          style: const TextStyle(
-            fontSize: 18,
+          style: TextStyle(
+            fontSize: SizeConfig.defaultSize! * 1.8,
             fontWeight: FontWeight.bold,
           ),
         ),
         SizeConfig().vSpace(1),
         SizedBox(
-          height: SizeConfig.defaultSize! * 30,
+          height: SizeConfig.screenHeight! / 3.5,
           width: double.infinity,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
