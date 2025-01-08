@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourist_guide/core/colors/colors.dart';
-import 'package:tourist_guide/core/utils/size_config.dart';
+import 'package:tourist_guide/core/utils/user_manager.dart';
 import 'package:tourist_guide/data/models/landmark_model.dart';
+import 'package:tourist_guide/data/places_data/places_data.dart';
 
 class LandmarkCard extends StatefulWidget {
   final LandMark place;
@@ -15,8 +17,7 @@ class _LandmarkCardState extends State<LandmarkCard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: SizeConfig.screenWidth! - 12,
-      height: SizeConfig.defaultSize! * 36,
+      width: ScreenUtil().screenWidth / 2 - 8,
       child: Card(
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
@@ -24,7 +25,7 @@ class _LandmarkCardState extends State<LandmarkCard> {
           children: [
             _cardImg(widget.place.imgPath),
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(10.0.r),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -55,8 +56,8 @@ class _LandmarkCardState extends State<LandmarkCard> {
         borderRadius: BorderRadius.circular(20),
         child: Image.asset(
           imgPath,
-          height: SizeConfig.defaultSize! * 36,
-          width: SizeConfig.screenWidth! - 8,
+          height: 1.sh,
+          width: 1.sw,
           fit: BoxFit.cover,
         ),
       ),
@@ -69,27 +70,25 @@ class _LandmarkCardState extends State<LandmarkCard> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        // const Expanded(child: SizedBox()),
         ClipOval(
           child: Container(
-            width: SizeConfig.defaultSize! * 4,
-            height: SizeConfig.defaultSize! * 4,
+            width: 0.05.sh,
+            height: 0.05.sh,
             decoration: detailsBoxTheme(15),
             child: Center(
               child: IconButton(
                 icon: Icon(
                   fav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
-                  size: SizeConfig.defaultSize! * 2.5,
+                  size: 0.025.sh,
                 ),
                 color: kMainColor,
                 onPressed: () {
-                  // setState(() {
-                  //   kPlaces[int.parse(placeId)].fav = !fav;
-                  //   //
-                  //   List<String> favPlaces = SharedPrefs().getFavPlaces();
-                  //   !fav ? favPlaces.add(placeId) : favPlaces.remove(placeId);
-                  //   SharedPrefs().setFavPlaces(ids: favPlaces);
-                  // });
+                  setState(() {
+                    PlacesData.kLandmarks[int.parse(placeId)].fav = !fav;
+                    List<String> favPlaces = UserManager().getFavPlaces();
+                    !fav ? favPlaces.add(placeId) : favPlaces.remove(placeId);
+                    UserManager().setFavPlaces(ids: favPlaces);
+                  });
                 },
               ),
             ),
@@ -105,8 +104,8 @@ class _LandmarkCardState extends State<LandmarkCard> {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: Container(
-        height: SizeConfig.defaultSize! * 7,
-        width: SizeConfig.screenWidth! - 12,
+        height: 0.09.sh,
+        width: ScreenUtil().screenWidth - 12,
         decoration: detailsBoxTheme(15),
         padding: const EdgeInsets.all(8),
         child: Column(
@@ -116,7 +115,7 @@ class _LandmarkCardState extends State<LandmarkCard> {
             Text(
               name,
               style: TextStyle(
-                fontSize: SizeConfig.defaultSize! * 1.6,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.bold,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -130,14 +129,14 @@ class _LandmarkCardState extends State<LandmarkCard> {
                       Icon(
                         Icons.place_rounded,
                         color: kLightBlack,
-                        size: SizeConfig.defaultSize! * 1.4,
+                        size: 0.020.sh,
                       ),
                       const SizedBox(width: 4),
                       Expanded(
                         child: Text(
                           gov,
                           style: TextStyle(
-                            fontSize: SizeConfig.defaultSize! * 1.4,
+                            fontSize: 14.sp,
                             color: kLightBlack,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -148,16 +147,17 @@ class _LandmarkCardState extends State<LandmarkCard> {
                 ),
                 Row(
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.star_rounded,
                       color: kLightBlack,
-                      size: 18,
+                      size: 0.020.sh,
+                      // 18,
                     ),
                     const SizedBox(width: 4),
                     Text(
                       rate,
                       style: TextStyle(
-                        fontSize: SizeConfig.defaultSize! * 1.4,
+                        fontSize: 14.sp,
                         color: kLightBlack,
                       ),
                     ),

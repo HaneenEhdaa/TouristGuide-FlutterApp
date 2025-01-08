@@ -1,14 +1,17 @@
+import 'package:tourist_guide/core/utils/user_manager.dart';
 import 'package:tourist_guide/data/models/landmark_model.dart';
 
 class PlacesData {
+  static List<String> favPlaces = UserManager().getFavPlaces();
+
   static List<LandMark> kLandmarks = [
     LandMark(
         id: '0',
         imgPath: 'assets/images/card_bg.png',
         name: 'Place 1',
-        governorate: 'Gocernorate 1',
+        governorate: 'Governorate 1',
         rate: '5.0',
-        fav: false,
+        fav: favPlaces.contains('0') ? true : false,
         description: '''
 This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...
 '''),
@@ -18,7 +21,7 @@ This is Test Description...This is Test Description...This is Test Description..
         name: 'Place 2',
         governorate: 'Governorate 2',
         rate: '5.0',
-        fav: false,
+        fav: favPlaces.contains('1') ? true : false,
         description: '''
 This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...
 '''),
@@ -28,7 +31,7 @@ This is Test Description...This is Test Description...This is Test Description..
         name: 'Place 3',
         governorate: 'Governorate 3',
         rate: '4.8',
-        fav: false,
+        fav: favPlaces.contains('2') ? true : false,
         description: '''
 This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...
 '''),
@@ -38,7 +41,7 @@ This is Test Description...This is Test Description...This is Test Description..
         name: 'Place 4',
         governorate: 'Governorate 4',
         rate: '4.9',
-        fav: false,
+        fav: favPlaces.contains('3') ? true : false,
         description: '''
 This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...
 '''),
@@ -48,7 +51,7 @@ This is Test Description...This is Test Description...This is Test Description..
         name: 'Place 5',
         governorate: 'Governorate 5',
         rate: '4.9',
-        fav: false,
+        fav: favPlaces.contains('4') ? true : false,
         description: '''
 This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...
 '''),
@@ -58,7 +61,7 @@ This is Test Description...This is Test Description...This is Test Description..
         name: 'Place 6',
         governorate: 'Governorate 6',
         rate: '4.9',
-        fav: false,
+        fav: favPlaces.contains('5') ? true : false,
         description: '''
 This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...This is Test Description...
 '''),

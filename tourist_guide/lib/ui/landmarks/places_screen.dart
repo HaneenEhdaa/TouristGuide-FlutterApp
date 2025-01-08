@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourist_guide/core/colors/colors.dart';
-import 'package:tourist_guide/core/utils/size_config.dart';
 import 'package:tourist_guide/core/widgets/landmark_card.dart';
 import 'package:tourist_guide/data/places_data/places_data.dart';
 
@@ -13,10 +13,15 @@ class PlacesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [_header(), _body()],
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: 1.sh - 75,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [_header(), _body()],
+            ),
+          ),
         ),
       ),
     );
@@ -26,41 +31,44 @@ class PlacesScreen extends StatelessWidget {
 // Displays the user's profile picture. If no image path is saved, a default logo image is shown.
   Widget _header() {
     return SafeArea(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Hi, User 👋',
-                style: TextStyle(
-                  fontSize: SizeConfig.defaultSize! * 2.2,
-                  fontWeight: FontWeight.bold,
+      child: SizedBox(
+        height: 0.07.sh,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Hi, User 👋',
+                  style: TextStyle(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              SizeConfig().vSpace(0.5),
-              Text(
-                'Discover best places to go to vacation 😍',
-                style: TextStyle(
-                  fontSize: SizeConfig.defaultSize! * 1.6,
-                  color: kLightBlack,
+                Text(
+                  'Discover best places to go to vacation 😍',
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    color: kLightBlack,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          ClipOval(
-            child: Container(
-              height: SizeConfig.defaultSize! * 5,
-              width: SizeConfig.defaultSize! * 5,
-              color: kGrey,
-              child: Image.asset(
-                'assets/images/card_bg.png',
-                fit: BoxFit.fill,
-              ),
+              ],
             ),
-          )
-        ],
+            ClipOval(
+              child: Container(
+                height: 0.05.sh,
+                width: 0.05.sh,
+                color: kGrey,
+                child: Image.asset(
+                  'assets/images/card_bg.png',
+                  fit: BoxFit.fill,
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -70,7 +78,7 @@ class PlacesScreen extends StatelessWidget {
     return Expanded(
       child: Column(
         children: [
-          _suggestedkPlaces(),
+          _suggestedPlaces(),
           _popularPlaces(),
         ],
       ),
@@ -79,29 +87,28 @@ class PlacesScreen extends StatelessWidget {
 
 // Displays a list of suggested places in a grid. It uses a GridView.builder to
 // show the places in a 2-column grid. Each place is shown using the PlaceCard widget.
-  Widget _suggestedkPlaces() {
-    return Expanded(
+  Widget _suggestedPlaces() {
+    return SizedBox(
+      height: 0.53.sh - 75,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizeConfig().vSpace(1),
+          SizedBox(height: 0.01.sh),
           Text(
             'Suggested Places',
             style: TextStyle(
-              fontSize: SizeConfig.defaultSize! * 1.8,
+              fontSize: 16.sp,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizeConfig().vSpace(1),
+          SizedBox(height: 0.01.sh),
           Expanded(
             child: GridView.builder(
               padding: EdgeInsets.zero,
               itemCount: PlacesData().suggestedPlaces().length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: SizeConfig.defaultSize! * 0.067,
-              ),
+                  crossAxisCount: 2, childAspectRatio: 0.65),
               itemBuilder: (context, index) =>
                   LandmarkCard(place: PlacesData().suggestedPlaces()[index]),
             ),
@@ -114,32 +121,33 @@ class PlacesScreen extends StatelessWidget {
 // Displays a list of popular places (which is the reverse order of kPlaces) in
 // a horizontal scrolling list. The PlaceCard widget is used for each place in the list.
   Widget _popularPlaces() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        SizeConfig().vSpace(1),
-        Text(
-          'Popular Places',
-          style: TextStyle(
-            fontSize: SizeConfig.defaultSize! * 1.8,
-            fontWeight: FontWeight.bold,
+    return SizedBox(
+      height: 0.41.sh - 75,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(height: 0.01.sh),
+          Text(
+            'Popular Places',
+            style: TextStyle(
+              fontSize: 16.sp,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-        SizeConfig().vSpace(1),
-        SizedBox(
-          height: SizeConfig.screenHeight! / 3.5,
-          width: double.infinity,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: PlacesData().popularPlaces().length,
-            itemBuilder: (context, index) {
-              return LandmarkCard(place: PlacesData().popularPlaces()[index]);
-            },
+          SizedBox(height: 0.01.sh),
+          Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: PlacesData().popularPlaces().length,
+              itemBuilder: (context, index) {
+                return LandmarkCard(place: PlacesData().popularPlaces()[index]);
+              },
+            ),
           ),
-        ),
-        SizeConfig().vSpace(0.4),
-      ],
+          SizedBox(height: 0.005.sh),
+        ],
+      ),
     );
   }
 }

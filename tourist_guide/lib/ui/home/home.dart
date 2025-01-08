@@ -1,5 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourist_guide/core/colors/colors.dart';
 import 'package:tourist_guide/ui/landmarks/fav_screen.dart';
 import 'package:tourist_guide/ui/landmarks/govs_screen.dart';
@@ -21,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
 // a PageView and a bottom curved navigation bar.
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.enableScale(enableWH: () => true, enableText: () => true);
     return Scaffold(
       body: _body(),
       bottomNavigationBar: _curvedNavBar(),
@@ -49,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
       index: pageIndex,
       backgroundColor: Colors.transparent,
       color: kMainColor,
-      items: const [
+      items: [
         Icon(Icons.home_rounded, size: 30, color: kWhite),
         Icon(Icons.place_rounded, size: 30, color: kWhite),
         Icon(Icons.favorite_rounded, size: 30, color: kWhite),

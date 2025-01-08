@@ -1,15 +1,25 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserManager {
+  static late SharedPreferences prefs;
+  static const String kFavListKey = 'fav';
   static const String USERS_KEY = 'users_list';
   static const String CURRENT_USER_KEY = 'current_user';
   static const String IS_LOGGED_IN_KEY = 'isLoggedIn';
 
+  // Initializes the SharedPreferences instance and sets up default values if
+  // certain keys don't exist.
+  void init() async {
+    debugPrint('=====\nInit\n=====');
+    prefs = await SharedPreferences.getInstance();
+    if (!prefs.containsKey('fav')) await prefs.setStringList('fav', []);
+  }
+
   // Get all users
   static Future<List<Map<String, dynamic>>> getAllUsers() async {
-    final prefs = await SharedPreferences.getInstance();
     final usersString = prefs.getString(USERS_KEY);
     if (usersString != null) {
       return List<Map<String, dynamic>>.from(json.decode(usersString));
@@ -19,7 +29,6 @@ class UserManager {
 
   // Get current user
   static Future<Map<String, dynamic>?> getCurrentUser() async {
-    final prefs = await SharedPreferences.getInstance();
     final userString = prefs.getString(CURRENT_USER_KEY);
     if (userString != null) {
       return json.decode(userString);
@@ -30,7 +39,6 @@ class UserManager {
   // Update user
   static Future<bool> updateUser(Map<String, dynamic> updatedUser) async {
     try {
-      final prefs = await SharedPreferences.getInstance();
       List<Map<String, dynamic>> usersList = await getAllUsers();
 
       final index =
@@ -56,7 +64,6 @@ class UserManager {
   // Delete user
   static Future<bool> deleteUser(String userId) async {
     try {
-      final prefs = await SharedPreferences.getInstance();
       List<Map<String, dynamic>> usersList = await getAllUsers();
 
       usersList.removeWhere((user) => user['id'] == userId);
@@ -76,14 +83,22 @@ class UserManager {
 
   // Logout
   static Future<void> logout() async {
-    final prefs = await SharedPreferences.getInstance();
     await prefs.remove(CURRENT_USER_KEY);
     await prefs.setBool(IS_LOGGED_IN_KEY, false);
   }
 
   // Clear all data
   static Future<void> clearAllData() async {
-    final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
+  }
+
+  // Saves a list of favorite place IDs to SharedPreferences.
+  void setFavPlaces({required List<String> ids}) async {
+    await prefs.setStringList(kFavListKey, ids);
+  }
+
+// Retrieves the list of favorite place IDs.
+  List<String> getFavPlaces() {
+    return prefs.getStringList(kFavListKey)!;
   }
 }
