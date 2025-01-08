@@ -1,14 +1,15 @@
 import 'dart:convert';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tourist_guide/core/colors/colors.dart';
-import 'package:tourist_guide/ui/auth/login.dart';
 
 import '../../core/widgets/custom_button.dart';
 import '../../core/widgets/custom_snack_bar.dart';
 import '../../core/widgets/custom_text_form_field.dart';
+
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -24,9 +25,9 @@ class _Signup extends State<Signup> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final _phoneNumberController = TextEditingController();
+
   @override
   void dispose() {
-    // Clean up the controller when the widget is removed from the widget tree
     _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
@@ -37,53 +38,42 @@ class _Signup extends State<Signup> {
 
   @override
   Widget build(BuildContext context) {
-    // Get screen dimensions
-    final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
-
-    // Calculate responsive sizes
-    final verticalSpacing = screenHeight * 0.03; // 3% of screen height
-    final horizontalPadding = screenWidth * 0.04; // 4% of screen width
-    final titleFontSize = screenWidth * 0.08; // 8% of screen width
-    final buttonHeight = screenHeight * 0.08; // 8% of screen height
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: horizontalPadding,
-              vertical: verticalSpacing,
+              horizontal: 16.w,
+              vertical: 24.h,
             ),
             child: Form(
               key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(height: verticalSpacing * 1.5),
+                  SizedBox(height: 36.h),
                   Align(
                     alignment: Alignment.topLeft,
                     child: Text(
                       'Sign up !',
                       style: TextStyle(
                         color: CupertinoColors.black,
-                        fontSize: titleFontSize,
+                        fontSize: 32.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                  SizedBox(height: verticalSpacing * 0.5),
+                  SizedBox(height: 12.h),
                   Text(
                     'Welcome! Please enter your Name, email and password to create your account.',
                     style: TextStyle(
                       color: Colors.grey,
-                      fontSize: screenWidth * 0.03,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.normal,
                     ),
                   ),
-                  SizedBox(height: verticalSpacing * 1.5),
-                  //CustomTextField widget for Full Name
+                  SizedBox(height: 36.h),
                   CustomTextField(
                     labelText: 'Full Name',
                     hintText: 'Enter your full name',
@@ -92,8 +82,7 @@ class _Signup extends State<Signup> {
                     fieldType: 'name',
                     keyboardType: TextInputType.name,
                   ),
-                  SizedBox(height: verticalSpacing),
-                  //CustomTextField widget for Email
+                  SizedBox(height: 24.h),
                   CustomTextField(
                     labelText: 'Email',
                     hintText: 'Enter your email',
@@ -102,8 +91,7 @@ class _Signup extends State<Signup> {
                     fieldType: 'email',
                     keyboardType: TextInputType.emailAddress,
                   ),
-                  SizedBox(height: verticalSpacing),
-                  //CustomTextField widget for Password
+                  SizedBox(height: 24.h),
                   CustomTextField(
                     labelText: 'Password',
                     hintText: 'Enter your password',
@@ -112,8 +100,7 @@ class _Signup extends State<Signup> {
                     fieldType: 'password',
                     isPassword: true,
                   ),
-                  SizedBox(height: verticalSpacing),
-                  //CustomTextField widget for Confirm Password
+                  SizedBox(height: 24.h),
                   CustomTextField(
                     labelText: 'Confirm Password',
                     hintText: 'Confirm your password',
@@ -124,7 +111,7 @@ class _Signup extends State<Signup> {
                     passwordController: _passwordController,
                     textInputAction: TextInputAction.done,
                   ),
-                  SizedBox(height: verticalSpacing),
+                  SizedBox(height: 24.h),
                   CustomTextField(
                     labelText: 'Phone Number (optional)',
                     hintText: 'Enter your phone number',
@@ -133,35 +120,38 @@ class _Signup extends State<Signup> {
                     fieldType: 'phone',
                     keyboardType: TextInputType.phone,
                   ),
-                  SizedBox(height: verticalSpacing * 2),
-                  //CustomButton widget for Sign Up
+                  SizedBox(height: 48.h),
                   CustomButton(
                     text: 'Sign Up',
-                    fontSize: screenWidth * 0.04, // 4% of screen width
+                    fontSize: 16.sp,
                     onPressed: _submitForm,
-                    height: buttonHeight,
-                    width: screenWidth * 0.9,
-                    // 90% of screen width
+                    height: 56.h,
+                    width: 0.9.sw,
                   ),
-                  SizedBox(height: verticalSpacing * 1.5),
+                  SizedBox(height: 36.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         'Have an account?',
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14.sp,
+                        ),
                       ),
                       GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Login()));
-                          },
-                          child: Text(
-                            '  Log in',
-                            style: TextStyle(color: kMainColor),
-                          )),
+                        onTap: () {
+                          Navigator.pushNamed(context, '/login');
+                        },
+                        child: Text(
+                          '  Log in',
+                          style: TextStyle(
+                            color: kMainColor,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -172,6 +162,10 @@ class _Signup extends State<Signup> {
       ),
     );
   }
+
+
+
+
 
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
@@ -186,12 +180,12 @@ class _Signup extends State<Signup> {
 
         if (existingUsersString != null) {
           // Parse existing users
-          usersList =
-              List<Map<String, dynamic>>.from(json.decode(existingUsersString));
+          usersList = List<Map<String, dynamic>>.from(
+              json.decode(existingUsersString)
+          );
 
           // Check for duplicate email
-          if (usersList.any((user) =>
-              user['email'].toString().toLowerCase() ==
+          if (usersList.any((user) => user['email'].toString().toLowerCase() ==
               _emailController.text.toLowerCase())) {
             if (!mounted) return;
 
@@ -200,9 +194,9 @@ class _Signup extends State<Signup> {
               message: 'This email is already registered',
             );
             return;
-          } else if (usersList.any((user) =>
-              user['phone'].toString().toLowerCase() ==
-              _phoneNumberController.text.toLowerCase())) {
+          } else if (_phoneNumberController.text.trim().isNotEmpty &&
+              usersList.any((user) =>
+              user['phone']?.toString().toLowerCase() == _phoneNumberController.text.trim().toLowerCase())) {
             if (!mounted) return;
 
             CustomSnackBar.showError(
@@ -233,8 +227,8 @@ class _Signup extends State<Signup> {
         await prefs.setString('current_user', json.encode(newUser));
         await prefs.setBool('isLoggedIn', true);
 
-        print('Users List: ${prefs.getString('users_list')}');
-        print('Current User: ${prefs.getString('current_user')}');
+        debugPrint('Users List: ${prefs.getString('users_list')}');
+        debugPrint('Current User: ${prefs.getString('current_user')}');
 
         if (!mounted) return;
 
@@ -243,13 +237,11 @@ class _Signup extends State<Signup> {
           message: 'Registration successful!',
         );
 
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => const Login(),
-          ),
-        );
+        // Navigate directly to HomePage after successful signup
+        Navigator.pushNamed(context, '/login');
+
       } catch (e) {
-        print('Error during registration: $e');
+        debugPrint('Error during registration: $e');
         CustomSnackBar.showError(
           context: context,
           message: 'Registration failed: ${e.toString()}',
@@ -257,4 +249,5 @@ class _Signup extends State<Signup> {
       }
     }
   }
+
 }

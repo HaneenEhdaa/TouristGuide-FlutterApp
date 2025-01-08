@@ -1,15 +1,16 @@
 import 'dart:convert';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tourist_guide/core/widgets/custom_button.dart';
-import 'package:tourist_guide/core/widgets/custom_snack_bar.dart';
-import 'package:tourist_guide/core/widgets/custom_text_form_field.dart';
-import 'package:tourist_guide/ui/auth/signup.dart';
-import 'package:tourist_guide/ui/home/welcome_screen.dart';
+
 
 import '../../core/colors/colors.dart';
+import '../../core/widgets/custom_button.dart';
+import '../../core/widgets/custom_snack_bar.dart';
+import '../../core/widgets/custom_text_form_field.dart';
+
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -24,15 +25,15 @@ class _LoginState extends State<Login> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
-    checkStoredData(); // This will print all stored data
+    checkStoredData();
   }
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is removed from the widget tree
     _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
@@ -42,56 +43,42 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    // Get screen dimensions
-    final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
-
-    // Calculate responsive sizes
-    final verticalSpacing = screenHeight * 0.03; // 3% of screen height
-    final horizontalPadding = screenWidth * 0.04; // 4% of screen width
-    final titleFontSize = screenWidth * 0.08; // 8% of screen width
-    final buttonHeight = screenHeight * 0.08; // 8% of screen height
-
     return Scaffold(
       backgroundColor: Colors.white,
-      // Wrap the body in AnimatedBuilder to rebuild when animation value changes
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: horizontalPadding,
-              vertical: verticalSpacing,
+            padding: REdgeInsets.symmetric(
+              horizontal: 16.w,
+              vertical: 24.h,
             ),
             child: Form(
               key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(height: verticalSpacing * 1.5),
+                  SizedBox(height: 36.h),
                   Align(
                     alignment: Alignment.topLeft,
                     child: Text(
                       'Welcome Back! 😍',
                       style: TextStyle(
                         color: CupertinoColors.black,
-                        fontSize: titleFontSize,
+                        fontSize: 32.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                  SizedBox(height: verticalSpacing * 0.5),
+                  SizedBox(height: 12.h),
                   Text(
                     'Happy to see you again! Please enter your email and password to login to your account.',
                     style: TextStyle(
                       color: Colors.grey,
-                      fontSize: screenWidth * 0.03,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.normal,
                     ),
                   ),
-                  SizedBox(height: verticalSpacing * 1.5),
-                  //CustomTextField widget for Full Name
-
-                  //CustomTextField widget for Email
+                  SizedBox(height: 36.h),
                   CustomTextField(
                     labelText: 'Email',
                     hintText: 'Enter your email',
@@ -100,8 +87,7 @@ class _LoginState extends State<Login> {
                     fieldType: 'email',
                     keyboardType: TextInputType.emailAddress,
                   ),
-                  SizedBox(height: verticalSpacing),
-                  //CustomTextField widget for Password
+                  SizedBox(height: 24.h),
                   CustomTextField(
                     labelText: 'Password',
                     hintText: 'Enter your password',
@@ -110,34 +96,35 @@ class _LoginState extends State<Login> {
                     fieldType: 'password',
                     isPassword: true,
                   ),
-
-                  //CustomTextField widget for Confirm Password
-
-                  SizedBox(height: verticalSpacing * 2),
-                  //CustomButton widget for Sign Up
+                  SizedBox(height: 48.h),
                   CustomButton(
                     text: 'Log In',
-                    fontSize: screenWidth * 0.04, // 4% of screen width
+                    fontSize: 16.sp,
                     onPressed: _login,
-                    height: buttonHeight,
-                    width: screenWidth * 0.9, // 90% of screen width
+                    height: 56.h,
+                    width: 0.9.sw,
                   ),
-                  SizedBox(height: verticalSpacing * 1.5),
+                  SizedBox(height: 36.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Don\'t have an account?'),
+                      Text(
+                        'Don\'t have an account?',
+                        style: TextStyle(fontSize: 14.sp),
+                      ),
                       GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Signup()));
-                          },
-                          child: Text(
-                            '  Sign Up',
-                            style: TextStyle(color: kMainColor),
-                          )),
+                        onTap: () {
+                          Navigator.pushNamed(context, '/signup');
+                        },
+                        child: Text(
+                          '  Sign Up',
+                          style: TextStyle(
+                            color: kMainColor,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -148,6 +135,7 @@ class _LoginState extends State<Login> {
       ),
     );
   }
+
 
   Future<void> _login() async {
     if (_formKey.currentState!.validate()) {
@@ -163,8 +151,8 @@ class _LoginState extends State<Login> {
         await Future.delayed(const Duration(milliseconds: 500));
 
         final prefs = await SharedPreferences.getInstance();
-
         final usersString = prefs.getString('users_list');
+
         if (usersString == null) {
           CustomSnackBar.showWarning(
             context: context,
@@ -174,13 +162,13 @@ class _LoginState extends State<Login> {
           return;
         }
 
-        List<Map<String, dynamic>> usersList =
-            List<Map<String, dynamic>>.from(json.decode(usersString));
+        List<Map<String, dynamic>> usersList = List<Map<String, dynamic>>.from(
+          json.decode(usersString),
+        );
 
         final user = usersList.firstWhere(
-          (user) =>
-              user['email'].toString().toLowerCase() ==
-                  _emailController.text.toLowerCase() &&
+              (user) =>
+          user['email'].toString().toLowerCase() == _emailController.text.toLowerCase() &&
               user['password'] == _passwordController.text,
           orElse: () => {},
         );
@@ -194,6 +182,7 @@ class _LoginState extends State<Login> {
           return;
         }
 
+        // Save the login status
         await prefs.setString('current_user', json.encode(user));
         await prefs.setBool('isLoggedIn', true);
 
@@ -210,15 +199,13 @@ class _LoginState extends State<Login> {
           fontWeight: FontWeight.bold,
         );
 
+        // Delay before navigating to HomePage
         await Future.delayed(const Duration(milliseconds: 800));
 
         if (!mounted) return;
 
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => const WelcomeScreen(),
-          ),
-        );
+        // Navigate to HomePage
+        Navigator.pushNamed(context, '/home');
       } catch (e) {
         CustomSnackBar.showCustom(
           context: context,
@@ -229,7 +216,7 @@ class _LoginState extends State<Login> {
         );
 
         // Log the error for debugging
-        print('Login error: $e');
+        debugPrint('Login error: $e');
       }
     } else {
       CustomSnackBar.showWarning(
@@ -239,16 +226,27 @@ class _LoginState extends State<Login> {
       );
     }
   }
+  Future<void> logout(BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isLoggedIn', false);
+    await prefs.remove('current_user');
+
+    if (!context.mounted) return;
+
+    Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
+  }
+
 
   Future<void> checkStoredData() async {
     final prefs = await SharedPreferences.getInstance();
+    final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
 
-    print('\nStored Data Check:');
-    print('Email: ${prefs.getString('email')}');
-    print('Password: ${prefs.getString('password')}');
-    print('UserData: ${prefs.getString('userData')}');
-    print('IsRegistered: ${prefs.getBool('isRegistered')}');
-    print('IsLoggedIn: ${prefs.getBool('isLoggedIn')}');
+    // Redirect to HomePage if the user is already logged in
+    // if (isLoggedIn) {
+    //   Navigator.of(context).pushReplacement(
+    //     MaterialPageRoute(builder: (context) => const HomePage()),
+    //   );
+    // }
   }
 
   Future<Map<String, dynamic>?> getCurrentUser() async {

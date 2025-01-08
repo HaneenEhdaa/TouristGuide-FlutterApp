@@ -1,6 +1,7 @@
 // custom_text_field.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:tourist_guide/core/colors/colors.dart';
 
@@ -76,10 +77,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
       _passwordRequirements['Special'] =
           value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
 
-      // Check if all requirements are met
       bool allRequirementsMet = _passwordRequirements.values.every((met) => met);
 
-      // Remove overlay if all requirements are met
       if (allRequirementsMet && _overlayEntry != null) {
         Future.delayed(const Duration(milliseconds: 500), () {
           _removeOverlay();
@@ -91,27 +90,27 @@ class _CustomTextFieldState extends State<CustomTextField> {
   Widget _buildRequirement(String text, bool isMet) {
     return AnimatedOpacity(
       duration: const Duration(milliseconds: 300),
-      opacity: isMet ? 0.7 : 1.0,  // Fade out completed requirements
+      opacity: isMet ? 0.7 : 1.0,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4.0),
+        padding: REdgeInsets.symmetric(vertical: 4.h),
         child: Row(
           children: [
             AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
               child: Icon(
                 isMet ? Icons.check_circle : Icons.circle_outlined,
-                size: 16,
+                size: 16.w,
                 color: isMet ? kMainColor : Colors.grey,
-                key: ValueKey(isMet),  // For animation
+                key: ValueKey(isMet),
               ),
             ),
-            const SizedBox(width: 8),
+            SizedBox(width: 8.w),
             Expanded(
               child: Text(
                 text,
                 style: TextStyle(
                   color: isMet ? kMainColor : Colors.grey,
-                  fontSize: 12,
+                  fontSize: 12.sp,
                 ),
               ),
             ),
@@ -126,18 +125,18 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
     _overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
-        width: 250,
+        width: 250.w,
         child: CompositedTransformFollower(
           link: _layerLink,
-          offset: const Offset(0, 60),
+          offset: Offset(0, 60.h),
           child: Material(
-            elevation: 4.0,
-            borderRadius: BorderRadius.circular(12),
+            elevation: 4,
+            borderRadius: BorderRadius.circular(12.r),
             child: Container(
-              padding: const EdgeInsets.all(12),
+              padding: REdgeInsets.all(12.w),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(12.r),
                 border: Border.all(color: Colors.grey[300]!),
               ),
               child: Column(
@@ -148,11 +147,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     'Password must contain:',
                     style: TextStyle(
                       color: kMainColor,
-                      fontSize: 12,
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
                   _buildRequirement('At least 8 characters', _passwordRequirements['Length']!),
                   _buildRequirement('At least one uppercase letter', _passwordRequirements['Uppercase']!),
                   _buildRequirement('At least one lowercase letter', _passwordRequirements['Lowercase']!),
@@ -169,16 +168,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     Overlay.of(context).insert(_overlayEntry!);
   }
 
-
-
-
   void _showCountryPicker() {
-    // Get screen dimensions
-    final size = MediaQuery.of(context).size;
-    final fontSize = (size.width * 0.04).clamp(14.0, 16.0);
-    final flagSize = (size.width * 0.06).clamp(20.0, 25.0);
-    final bottomSheetHeight = size.height * 0.7;
-
     showCountryPicker(
       context: context,
       showPhoneCode: true,
@@ -187,51 +177,46 @@ class _CustomTextFieldState extends State<CustomTextField> {
       useRootNavigator: true,
       favorite: ['EG', 'SA', 'AE', 'US', 'GB'],
       countryListTheme: CountryListThemeData(
-        flagSize: flagSize,
+        flagSize: 25.w,
         backgroundColor: Colors.white,
-        textStyle: TextStyle(fontSize: fontSize, color: Colors.black),
-        bottomSheetHeight: bottomSheetHeight,
+        textStyle: TextStyle(fontSize: 14.sp, color: Colors.black),
+        bottomSheetHeight: 0.7.sh,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular((size.width * 0.05).clamp(16.0, 20.0)),
-          topRight: Radius.circular((size.width * 0.05).clamp(16.0, 20.0)),
+          topLeft: Radius.circular(20.r),
+          topRight: Radius.circular(20.r),
         ),
         searchTextStyle: TextStyle(
           color: kMainColor,
-          fontSize: fontSize,
+          fontSize: 14.sp,
         ),
         inputDecoration: InputDecoration(
-          counterStyle: TextStyle(color: kMainColor),
           labelText: 'Search',
           labelStyle: TextStyle(
             color: kMainColor,
-            fontSize: fontSize,
+            fontSize: 14.sp,
             fontWeight: FontWeight.bold,
           ),
           hintText: 'Start typing to search',
           hintStyle: TextStyle(
             color: kMainColor.withOpacity(0.5),
-            fontSize: fontSize * 0.9,
+            fontSize: 13.sp,
           ),
-          prefixIcon: Icon(Icons.search, color: kMainColor),
-          //suffixIcon: Icon(Icons.clear, color: kMainColor),
+          prefixIcon: Icon(Icons.search, color: kMainColor, size: 20.w),
           border: OutlineInputBorder(
             borderSide: BorderSide(color: kMainColor.withOpacity(0.2)),
-            borderRadius: BorderRadius.circular((size.width * 0.05).clamp(16.0, 20.0)),
+            borderRadius: BorderRadius.circular(20.r),
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: kMainColor.withOpacity(0.2)),
-            borderRadius: BorderRadius.circular((size.width * 0.05).clamp(16.0, 20.0)),
+            borderRadius: BorderRadius.circular(20.r),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: kMainColor),
-            borderRadius: BorderRadius.circular((size.width * 0.05).clamp(16.0, 20.0)),
+            borderRadius: BorderRadius.circular(20.r),
           ),
-          filled: true,
-          fillColor: Colors.white,
-          focusColor: kMainColor,
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: size.width * 0.04,
-            vertical: size.height * 0.015,
+          contentPadding: REdgeInsets.symmetric(
+            horizontal: 16.w,
+            vertical: 12.h,
           ),
         ),
       ),
@@ -248,7 +233,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     switch (widget.fieldType) {
       case 'phone':
         if (value == null || value.isEmpty) {
-          return null; // Optional field
+          return null;
         }
 
         String cleanNumber = value
@@ -323,9 +308,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final fontSize = (size.width * 0.04).clamp(13.0, 13.0);
-
     return CompositedTransformTarget(
       link: _layerLink,
       child: Focus(
@@ -344,7 +326,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         child: TextFormField(
           cursorColor: kMainColor,
           controller: widget.controller,
-          style: TextStyle(fontSize: fontSize),
+          style: TextStyle(fontSize: 14.sp),
           onChanged: (value) {
             if (widget.fieldType == 'password') {
               _updatePasswordRequirements(value);
@@ -360,64 +342,66 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 : widget.hintText,
             labelStyle: TextStyle(
               color: kMainColor,
-              fontSize: fontSize,
+              fontSize: 14.sp,
             ),
             prefixIcon: widget.fieldType == 'phone'
                 ? GestureDetector(
               onTap: _showCountryPicker,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
+                padding: REdgeInsets.symmetric(horizontal: 12.w),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
                       _selectedCountry?.flagEmoji ?? '🌍',
-                      style: TextStyle(fontSize: fontSize * 1.2),
+                      style: TextStyle(fontSize: 16.sp),
                     ),
-                    const SizedBox(width: 4),
+                    SizedBox(width: 4.w),
                     Text(
                       '+${_selectedCountry?.phoneCode ?? ''}',
                       style: TextStyle(
                         color: kMainColor,
-                        fontSize: fontSize,
+                        fontSize: 14.sp,
                       ),
                     ),
-                    const Icon(Icons.arrow_drop_down, color: kMainColor),
+                    Icon(Icons.arrow_drop_down,
+                        color: kMainColor, size: 20.w),
                   ],
                 ),
               ),
             )
-                : Icon(widget.prefixIcon, color: kMainColor),
+                : Icon(widget.prefixIcon, color: kMainColor, size: 20.w),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(40),
+              borderRadius: BorderRadius.circular(40.r),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(40),
+              borderRadius: BorderRadius.circular(40.r),
               borderSide: BorderSide(color: Colors.grey.shade400),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(40),
+              borderRadius: BorderRadius.circular(40.r),
               borderSide: BorderSide(color: kMainColor),
             ),
             errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(40),
+              borderRadius: BorderRadius.circular(40.r),
               borderSide: const BorderSide(color: Colors.red),
             ),
             focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(40),
+              borderRadius: BorderRadius.circular(40.r),
               borderSide: const BorderSide(color: Colors.red),
             ),
             filled: true,
             fillColor: Colors.white,
-            contentPadding: EdgeInsets.symmetric(
-              horizontal: size.width * 0.06,
-              vertical: size.height * 0.02,
+            contentPadding: REdgeInsets.symmetric(
+              horizontal: 24.w,
+              vertical: 16.h,
             ),
             suffixIcon: widget.isPassword
                 ? IconButton(
               icon: Icon(
                 _obscureText ? Icons.visibility : Icons.visibility_off,
                 color: kMainColor,
+                size: 20.w,
               ),
               onPressed: () {
                 setState(() {

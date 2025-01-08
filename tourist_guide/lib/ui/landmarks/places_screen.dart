@@ -1,12 +1,40 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tourist_guide/core/colors/colors.dart';
 import 'package:tourist_guide/core/widgets/landmark_card.dart';
 import 'package:tourist_guide/data/places_data/places_data.dart';
 
-class PlacesScreen extends StatelessWidget {
+class PlacesScreen extends StatefulWidget {
   const PlacesScreen({super.key});
 
+  @override
+  State<PlacesScreen> createState() => _PlacesScreenState();
+}
+
+class _PlacesScreenState extends State<PlacesScreen> {
+  String userName = 'User'; // Default value
+
+  @override
+  void initState() {
+    super.initState();
+    loadUserName();
+  }
+
+  Future<void> loadUserName() async {
+    final prefs = await SharedPreferences.getInstance();
+    final userString = prefs.getString('current_user');
+    if (userString != null) {
+      final userData = json.decode(userString);
+      if (userData['name'] != null) {
+        setState(() {
+          // Get first name only
+          userName = userData['name'].toString().split(' ')[0];
+        });
+      }
+    }
+  }
 // The main UI of the PlacesScreen is built with padding and two main components:
 // the header and body. The header displays a personalized greeting, and the body
 // contains two sections for places.
@@ -27,8 +55,6 @@ class PlacesScreen extends StatelessWidget {
     );
   }
 
-// Displays a greeting message with the user's first name retrieved from shared preferences.
-// Displays the user's profile picture. If no image path is saved, a default logo image is shown.
   Widget _header() {
     return SafeArea(
       child: SizedBox(
@@ -41,7 +67,7 @@ class PlacesScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Hi, User 👋',
+                  'Hi, $userName 👋',
                   style: TextStyle(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.bold,
@@ -73,7 +99,7 @@ class PlacesScreen extends StatelessWidget {
     );
   }
 
-// The body contains two main sections: suggested places and popular places.
+  // Rest of your widgets remain the same...
   Widget _body() {
     return Expanded(
       child: Column(
@@ -85,8 +111,6 @@ class PlacesScreen extends StatelessWidget {
     );
   }
 
-// Displays a list of suggested places in a grid. It uses a GridView.builder to
-// show the places in a 2-column grid. Each place is shown using the PlaceCard widget.
   Widget _suggestedPlaces() {
     return SizedBox(
       height: 0.53.sh - 75,
@@ -107,7 +131,7 @@ class PlacesScreen extends StatelessWidget {
             child: GridView.builder(
               padding: EdgeInsets.zero,
               itemCount: PlacesData().suggestedPlaces().length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2, childAspectRatio: 0.65),
               itemBuilder: (context, index) =>
                   LandmarkCard(place: PlacesData().suggestedPlaces()[index]),
@@ -118,8 +142,6 @@ class PlacesScreen extends StatelessWidget {
     );
   }
 
-// Displays a list of popular places (which is the reverse order of kPlaces) in
-// a horizontal scrolling list. The PlaceCard widget is used for each place in the list.
   Widget _popularPlaces() {
     return SizedBox(
       height: 0.41.sh - 75,

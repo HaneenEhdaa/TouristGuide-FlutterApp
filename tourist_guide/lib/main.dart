@@ -4,7 +4,8 @@ import 'package:tourist_guide/core/utils/user_manager.dart';
 import 'package:tourist_guide/ui/auth/login.dart';
 import 'package:tourist_guide/ui/home/home.dart';
 import 'package:tourist_guide/ui/auth/signup.dart';
-import 'package:tourist_guide/ui/home/welcome_screen.dart';
+import 'package:tourist_guide/ui/home/splash.dart';
+
 import 'package:tourist_guide/ui/landmarks/details_screen.dart';
 
 void main() async {
@@ -28,11 +29,11 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           fontFamily: 'Suwannaphum',
         ),
-        home: WelcomeScreen(),
+        home: SplashScreen(),
         routes: {
           '/login': (context) => const Login(),
           '/signup': (context) => const Signup(),
-          '/welcome': (context) => const WelcomeScreen(),
+          '/splash': (context) => const SplashScreen(),
           '/home': (context) => const HomeScreen(),
           '/details': (context) =>  DetailsScreen(),
         },

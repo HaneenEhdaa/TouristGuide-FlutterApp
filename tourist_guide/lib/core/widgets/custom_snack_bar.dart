@@ -1,35 +1,30 @@
 // widgets/custom_snack_bar.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 
 class CustomSnackBar {
   // Helper method to get responsive dimensions
-  static double _getResponsiveDimension(BuildContext context, double percentage) {
-    final size = MediaQuery.of(context).size;
-    final screenWidth = size.width;
-    return screenWidth * percentage;
+  static double _getResponsiveDimension(double percentage) {
+    return (percentage * 390).w; // Based on 390 design width
   }
 
   // Helper method to get responsive font size
-  static double _getResponsiveFontSize(BuildContext context, double baseSize) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final fontSize = (screenWidth * 0.04).clamp(baseSize - 2, baseSize + 4);
-    return fontSize;
+  static double _getResponsiveFontSize(double baseSize) {
+    return baseSize.sp;
   }
 
   // Helper method to get responsive padding
-  static EdgeInsets _getResponsivePadding(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    return EdgeInsets.symmetric(
-      horizontal: (screenWidth * 0.04).clamp(12.0, 24.0),
-      vertical: (screenWidth * 0.02).clamp(8.0, 16.0),
+  static EdgeInsets _getResponsivePadding() {
+    return REdgeInsets.symmetric(
+      horizontal: 16.w,
+      vertical: 12.h,
     );
   }
 
   // Helper method to get responsive border radius
-  static double _getResponsiveBorderRadius(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    return (screenWidth * 0.05).clamp(16.0, 24.0);
+  static double _getResponsiveBorderRadius() {
+    return 16.r;
   }
 
   // Success SnackBar
@@ -38,17 +33,13 @@ class CustomSnackBar {
     required String message,
     Duration duration = const Duration(seconds: 3),
   }) {
-    final fontSize = _getResponsiveFontSize(context, 16);
-    final borderRadius = _getResponsiveBorderRadius(context);
-
     AnimatedSnackBar.material(
       message,
       type: AnimatedSnackBarType.success,
       mobileSnackBarPosition: MobileSnackBarPosition.bottom,
       desktopSnackBarPosition: DesktopSnackBarPosition.topRight,
       duration: duration,
-      borderRadius: BorderRadius.circular(borderRadius),
-
+      borderRadius: BorderRadius.circular(_getResponsiveBorderRadius()),
     ).show(context);
   }
 
@@ -58,17 +49,13 @@ class CustomSnackBar {
     required String message,
     Duration duration = const Duration(seconds: 3),
   }) {
-    final fontSize = _getResponsiveFontSize(context, 16);
-    final borderRadius = _getResponsiveBorderRadius(context);
-
     AnimatedSnackBar.material(
       message,
       type: AnimatedSnackBarType.error,
       mobileSnackBarPosition: MobileSnackBarPosition.bottom,
       desktopSnackBarPosition: DesktopSnackBarPosition.topRight,
       duration: duration,
-      borderRadius: BorderRadius.circular(borderRadius),
-
+      borderRadius: BorderRadius.circular(_getResponsiveBorderRadius()),
     ).show(context);
   }
 
@@ -78,17 +65,13 @@ class CustomSnackBar {
     required String message,
     Duration duration = const Duration(seconds: 3),
   }) {
-    final fontSize = _getResponsiveFontSize(context, 16);
-    final borderRadius = _getResponsiveBorderRadius(context);
-
     AnimatedSnackBar.material(
       message,
       type: AnimatedSnackBarType.warning,
       mobileSnackBarPosition: MobileSnackBarPosition.bottom,
       desktopSnackBarPosition: DesktopSnackBarPosition.topRight,
       duration: duration,
-      borderRadius: BorderRadius.circular(borderRadius),
-
+      borderRadius: BorderRadius.circular(_getResponsiveBorderRadius()),
     ).show(context);
   }
 
@@ -98,17 +81,13 @@ class CustomSnackBar {
     required String message,
     Duration duration = const Duration(seconds: 3),
   }) {
-    final fontSize = _getResponsiveFontSize(context, 16);
-    final borderRadius = _getResponsiveBorderRadius(context);
-
     AnimatedSnackBar.material(
       message,
       type: AnimatedSnackBarType.info,
       mobileSnackBarPosition: MobileSnackBarPosition.bottom,
       desktopSnackBarPosition: DesktopSnackBarPosition.topRight,
       duration: duration,
-      borderRadius: BorderRadius.circular(borderRadius),
-
+      borderRadius: BorderRadius.circular(_getResponsiveBorderRadius()),
     ).show(context);
   }
 
@@ -123,11 +102,11 @@ class CustomSnackBar {
     double? fontSize,
     FontWeight fontWeight = FontWeight.w500,
   }) {
-    final responsiveFontSize = fontSize ?? _getResponsiveFontSize(context, 16);
-    final responsivePadding = _getResponsivePadding(context);
-    final borderRadius = _getResponsiveBorderRadius(context);
-    final iconSize = _getResponsiveDimension(context, 0.06).clamp(20.0, 28.0);
-    final containerWidth = _getResponsiveDimension(context, 0.9); // 90% of screen width
+    final responsiveFontSize = fontSize?.sp ?? 16.sp;
+    final responsivePadding = _getResponsivePadding();
+    final borderRadius = _getResponsiveBorderRadius();
+    final iconSize = 24.w; // Base icon size
+    final containerWidth = 351.w; // 90% of 390
 
     AnimatedSnackBar(
       builder: (context) {
@@ -144,8 +123,8 @@ class CustomSnackBar {
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.2),
-                  blurRadius: 8,
-                  offset: const Offset(0, 2),
+                  blurRadius: 8.r,
+                  offset: Offset(0, 2.h),
                 ),
               ],
             ),
@@ -157,7 +136,7 @@ class CustomSnackBar {
                   color: textColor,
                   size: iconSize,
                 ),
-                SizedBox(width: _getResponsiveDimension(context, 0.02)),
+                SizedBox(width: 8.w),
                 Expanded(
                   child: Text(
                     message,
