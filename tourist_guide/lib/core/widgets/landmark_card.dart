@@ -30,9 +30,7 @@ class _LandmarkCardState extends State<LandmarkCard> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  FavoriteButton(
-                      fav: widget.place.fav, placeId: widget.place.id),
-                  // _favorite(widget.place.id, widget.place.fav),
+                  FavoriteButton(place: widget.place),
                   const Expanded(child: SizedBox()),
                   _aboutPlace(
                     widget.place.name,
@@ -65,40 +63,6 @@ class _LandmarkCardState extends State<LandmarkCard> {
           fit: BoxFit.cover,
         ),
       ),
-    );
-  }
-
-// Displays the favorite icon, allowing users to mark/unmark a place as a favorite.
-// Updates the favorite status both in the local list and in shared preferences.
-  Widget _favorite(String placeId, bool fav) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        ClipOval(
-          child: Container(
-            width: 0.05.sh,
-            height: 0.05.sh,
-            decoration: detailsBoxTheme(15),
-            child: Center(
-              child: IconButton(
-                icon: Icon(
-                  fav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
-                  size: 0.025.sh,
-                ),
-                color: kMainColor,
-                onPressed: () {
-                  setState(() {
-                    PlacesData.kLandmarks[int.parse(placeId)].fav = !fav;
-                    List<String> favPlaces = UserManager().getFavPlaces();
-                    !fav ? favPlaces.add(placeId) : favPlaces.remove(placeId);
-                    UserManager().setFavPlaces(ids: favPlaces);
-                  });
-                },
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 
@@ -135,7 +99,7 @@ class _LandmarkCardState extends State<LandmarkCard> {
                         color: kLightBlack,
                         size: 0.020.sh,
                       ),
-                      const SizedBox(width: 4),
+                      SizedBox(width: 4.w),
                       Expanded(
                         child: Text(
                           gov,
@@ -157,7 +121,7 @@ class _LandmarkCardState extends State<LandmarkCard> {
                       size: 0.020.sh,
                       // 18,
                     ),
-                    const SizedBox(width: 4),
+                    SizedBox(width: 4.w),
                     Text(
                       rate,
                       style: TextStyle(

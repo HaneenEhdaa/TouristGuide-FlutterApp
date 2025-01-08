@@ -89,7 +89,8 @@ class _DetailsScreenState extends State<DetailsScreen>
                   textAlign: TextAlign.center,
                   landMark.description!,
                   overflow: TextOverflow.fade,
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18.sp),
+                  style:
+                      TextStyle(fontWeight: FontWeight.w600, fontSize: 18.sp),
                 ),
               ),
               PlacesData().similiarPlaces(landMark).isNotEmpty
@@ -124,7 +125,9 @@ class _DetailsScreenState extends State<DetailsScreen>
             Text(
               landMark.governorate,
               style: TextStyle(
-                  fontSize: 20.sp, fontWeight: FontWeight.w900, color: kMainColor),
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w900,
+                  color: kMainColor),
             ),
             Spacer(),
             Icon(
@@ -169,12 +172,12 @@ class _DetailsScreenState extends State<DetailsScreen>
         ),
         _backButton(context),
         Positioned(
-            bottom: 10.h,
-            right: 15.w,
-            child: FavoriteButton(
-              fav: landMark.fav,
-              placeId: landMark.id,
-            )),
+          right: 15,
+          bottom: 10,
+          child: FavoriteButton(
+            place: landMark,
+          ),
+        ),
       ],
     );
   }
