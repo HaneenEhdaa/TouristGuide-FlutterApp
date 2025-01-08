@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourist_guide/core/colors/colors.dart';
 import 'package:tourist_guide/core/utils/user_manager.dart';
+import 'package:tourist_guide/core/widgets/favoriteButton.dart';
 import 'package:tourist_guide/data/models/landmark_model.dart';
 import 'package:tourist_guide/data/places_data/places_data.dart';
 
@@ -23,13 +24,15 @@ class _LandmarkCardState extends State<LandmarkCard> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
         child: Stack(
           children: [
-            _cardImg(widget.place.imgPath),
+            _cardImg(),
             Padding(
               padding: EdgeInsets.all(10.0.r),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _favorite(widget.place.id, widget.place.fav),
+                  FavoriteButton(
+                      fav: widget.place.fav, placeId: widget.place.id),
+                  // _favorite(widget.place.id, widget.place.fav),
                   const Expanded(child: SizedBox()),
                   _aboutPlace(
                     widget.place.name,
@@ -47,15 +50,16 @@ class _LandmarkCardState extends State<LandmarkCard> {
 
 // Displays the image of the place inside a ClipRRect widget with a rounded border.
 // Tapping on the image navigates to the place details page.
-  Widget _cardImg(String imgPath) {
+  Widget _cardImg() {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, '/details', arguments: widget.place);
+        Navigator.pushNamed(context, '/details',
+            arguments: {'landMark': widget.place});
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
-        child: Image.asset(
-          imgPath,
+        child: Image(
+          image: widget.place.imgPath[0].image,
           height: 1.sh,
           width: 1.sw,
           fit: BoxFit.cover,

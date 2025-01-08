@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
+
 class LandMark {
   late String id;
-  late String imgPath;
+  late List<Image> imgPath;
   late String name;
   late String governorate;
   late String rate;
