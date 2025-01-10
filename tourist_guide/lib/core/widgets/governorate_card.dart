@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourist_guide/core/colors/colors.dart';
-import 'package:tourist_guide/core/widgets/favorite_btn.dart';
 import 'package:tourist_guide/data/models/governorate_model.dart';
 import 'package:tourist_guide/data/models/landmark_model.dart';
 
@@ -52,8 +51,7 @@ class _GovernorateCardState extends State<GovernorateCard> {
   Widget _cardImg(String GovName) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, '/governate_detials',
-            arguments: GovName);
+        Navigator.pushNamed(context, '/governate_detials', arguments: GovName);
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
@@ -68,7 +66,9 @@ class _GovernorateCardState extends State<GovernorateCard> {
   }
 
 // Displays governorate
-  Widget _aboutGov(String name,) {
+  Widget _aboutGov(
+    String name,
+  ) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: Container(

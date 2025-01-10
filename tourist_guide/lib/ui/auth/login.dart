@@ -203,8 +203,7 @@ class _LoginState extends State<Login> {
         if (!mounted) return;
 
         // Navigate to HomePage
-        Navigator.pushNamedAndRemoveUntil(
-            context, '/home', (Route<dynamic> route) => false);
+        Navigator.pushNamed(context, '/home');
       } catch (e) {
         CustomSnackBar.showCustom(
           context: context,

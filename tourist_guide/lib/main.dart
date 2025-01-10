@@ -7,8 +7,6 @@ import 'package:tourist_guide/ui/home/home.dart';
 import 'package:tourist_guide/ui/auth/signup.dart';
 import 'package:tourist_guide/ui/home/splash.dart';
 
-import 'package:tourist_guide/ui/landmarks/details_screen.dart';
-
 void main() async {
   runApp(const MyApp());
 }
@@ -36,11 +34,10 @@ class MyApp extends StatelessWidget {
           '/signup': (context) => const Signup(),
           '/splash': (context) => const SplashScreen(),
           '/home': (context) => const HomeScreen(),
-          '/details': (context) =>  DetailsScreen(),
-          '/governate_detials' : (context) => GovernorateDetails()
+          // '/details': (context) => DetailsScreen(),
+          '/governate_detials': (context) => GovernorateDetails()
         },
       ),
     );
   }
 }
-

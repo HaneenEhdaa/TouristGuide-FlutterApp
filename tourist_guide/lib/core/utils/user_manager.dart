@@ -106,7 +106,7 @@ class UserManager {
   }
 
   // Saves a list of favorite place IDs to SharedPreferences.
-  Future<void> updateFavPlaces({required List<String> ids}) async {
+  Future<void> setFavPlaces({required List<String> ids}) async {
     await prefs.setStringList(kFavListKey, ids);
   }
 

@@ -12,14 +12,14 @@ class CustomButton extends StatelessWidget {
   final double? borderRadius;
 
   const CustomButton({
-    super.key,
+    Key? key,
     required this.text,
     required this.onPressed,
     this.width,
     this.height,
     this.fontSize,
     this.borderRadius,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class CustomButton extends StatelessWidget {
     final buttonFontSize = fontSize ?? defaultFontSize;
     final buttonBorderRadius = borderRadius ?? defaultBorderRadius;
 
-    return SizedBox(
+    return Container(
       width: buttonWidth.clamp(117.w, 351.w), // 30% to 90% of 390
       height: buttonHeight.clamp(42.h, 67.h), // 5% to 8% of 844
       child: ElevatedButton(
