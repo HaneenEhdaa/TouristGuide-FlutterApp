@@ -17,18 +17,22 @@ class DetailsScreen extends StatefulWidget {
 
 class _DetailsScreenState extends State<DetailsScreen>
     with SingleTickerProviderStateMixin {
-  late final AnimationController _controller;
-  late final List<Animation<double>> _fadeAnimations;
+  //using SingleTickerProvider mixin to use on animation controller.
+
+  late final AnimationController _controller; // Controller for fade animations
+  late final List<Animation<double>> _fadeAnimations; // List of fade animations
 
   @override
   void initState() {
     super.initState();
 
+    // Initializing animation controller
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 5),
     );
 
+    // Creating a sequence of fade animations with staggered intervals.
     _fadeAnimations = List.generate(
       4,
       (index) => Tween<double>(begin: 0.0, end: 1.0).animate(
@@ -43,23 +47,26 @@ class _DetailsScreenState extends State<DetailsScreen>
       ),
     );
 
+    // Starting the animation
     _controller.forward();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller.dispose(); // Dispose the animation controller
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    // Retrieving landmark data passed via arguments
     final Map arguments = ModalRoute.of(context)!.settings.arguments as Map;
     LandMark landMark = arguments["landMark"];
 
     return Scaffold(
       body: Padding(
         padding: REdgeInsets.symmetric(
+          // Responsive padding
           horizontal: 15,
         ),
         child: SingleChildScrollView(
@@ -71,12 +78,13 @@ class _DetailsScreenState extends State<DetailsScreen>
               ),
               FadeTransition(
                   opacity: _fadeAnimations[0],
-                  child: _coverImage(context, landMark)),
+                  child: _coverImage(context, landMark)), // Cover image section
               SizedBox(
                 height: 16.h,
               ),
               FadeTransition(
-                  opacity: _fadeAnimations[1], child: _placeDetails(landMark)),
+                  opacity: _fadeAnimations[1],
+                  child: _placeDetails(landMark)), // Place details section
               SizedBox(
                 height: 16.h,
               ),
@@ -84,16 +92,19 @@ class _DetailsScreenState extends State<DetailsScreen>
                 opacity: _fadeAnimations[2],
                 child: Text(
                   textAlign: TextAlign.center,
-                  landMark.description!,
+                  landMark.description!, // Displaying the landmark description
                   overflow: TextOverflow.fade,
                   style:
                       TextStyle(fontWeight: FontWeight.w600, fontSize: 18.sp),
                 ),
               ),
-              PlacesData().nearbyPlaces(landMark).isNotEmpty
+              PlacesData()
+                      .nearbyPlaces(landMark)
+                      .isNotEmpty // Conditional rendering of Nearby places
+
                   ? FadeTransition(
                       opacity: _fadeAnimations[3],
-                      child: _similiarPlaces(landMark))
+                      child: _nearbyPlaces(landMark))
                   : SizedBox(),
             ],
           ),
@@ -102,6 +113,7 @@ class _DetailsScreenState extends State<DetailsScreen>
     );
   }
 
+  // Widget for displaying landmark details
   Widget _placeDetails(LandMark landMark) {
     return Column(
       children: [
@@ -145,6 +157,7 @@ class _DetailsScreenState extends State<DetailsScreen>
     );
   }
 
+  // Widget for displaying the cover image with a carousel slider
   Widget _coverImage(BuildContext context, LandMark landMark) {
     return Stack(
       children: [
@@ -162,20 +175,24 @@ class _DetailsScreenState extends State<DetailsScreen>
                     ),
                   ),
               options: CarouselOptions(
-                  autoPlay: true,
+                  autoPlay: true, // Automatic sliding
                   autoPlayInterval: const Duration(seconds: 3),
                   viewportFraction: 1,
                   height: 400.h)),
         ),
-        _backButton(context),
+        _backButton(context), // Back button widget
         Positioned(
             right: 15,
             bottom: 10,
-            child: FavoriteButton(place: landMark, isFromFav: false)),
+            child: FavoriteButton(
+                place: landMark,
+                isFromFav:
+                    false)), //using Favorite button created in widgets folder.
       ],
     );
   }
 
+  // Widget for back navigation button
   Widget _backButton(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.of(context).pop(),
@@ -187,7 +204,8 @@ class _DetailsScreenState extends State<DetailsScreen>
     );
   }
 
-  Widget _similiarPlaces(LandMark landmark) {
+  // Widget for displaying nearby Places.
+  Widget _nearbyPlaces(LandMark landmark) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
