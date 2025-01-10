@@ -1,11 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tourist_guide/core/utils/user_manager.dart';
+=======
+import 'package:shared_preferences/shared_preferences.dart';
+>>>>>>> 0faaec3378b09d848f5be0c0b8cf71ea103dc48a
 
 import '../../core/colors/colors.dart';
 import '../../data/models/user_model.dart';
@@ -22,6 +26,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+<<<<<<< HEAD
   var user = User(email: "", id: "", name: "", password: "", phone: "");
   Future<void> _getData() async {
     final prefs = await SharedPreferences.getInstance();
@@ -197,14 +202,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
               },
             ),
           ]),
+=======
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Center(
+          child: const Text('Profile Screen'),
+        ),
+        SizedBox(height: 200),
+        ElevatedButton(
+          onPressed: () async {
+            final prefs = await SharedPreferences.getInstance();
+            await prefs.setBool('isLoggedIn', false);
+            if (!mounted) return;
+            Navigator.pushNamed(context, '/login');
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: kMainColor,
+            padding: const EdgeInsets.symmetric(
+              vertical: 12,
+              horizontal: 16,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40),
+            ),
+            elevation: 0,
+          ),
+          child: const Text(
+            'Log out',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.white,
+            ),
+          ),
+>>>>>>> 0faaec3378b09d848f5be0c0b8cf71ea103dc48a
         ),
       ),
     );
-  }
-
-  void _logout() async {
-    UserManager.logout();
-    Navigator.pushNamedAndRemoveUntil(
-        context, '/login', (Route<dynamic> route) => false);
   }
 }

@@ -10,7 +10,6 @@ import '../../core/widgets/custom_button.dart';
 import '../../core/widgets/custom_snack_bar.dart';
 import '../../core/widgets/custom_text_form_field.dart';
 
-
 class Signup extends StatefulWidget {
   const Signup({super.key});
 
@@ -163,10 +162,6 @@ class _Signup extends State<Signup> {
     );
   }
 
-
-
-
-
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
@@ -180,12 +175,12 @@ class _Signup extends State<Signup> {
 
         if (existingUsersString != null) {
           // Parse existing users
-          usersList = List<Map<String, dynamic>>.from(
-              json.decode(existingUsersString)
-          );
+          usersList =
+              List<Map<String, dynamic>>.from(json.decode(existingUsersString));
 
           // Check for duplicate email
-          if (usersList.any((user) => user['email'].toString().toLowerCase() ==
+          if (usersList.any((user) =>
+              user['email'].toString().toLowerCase() ==
               _emailController.text.toLowerCase())) {
             if (!mounted) return;
 
@@ -196,7 +191,8 @@ class _Signup extends State<Signup> {
             return;
           } else if (_phoneNumberController.text.trim().isNotEmpty &&
               usersList.any((user) =>
-              user['phone']?.toString().toLowerCase() == _phoneNumberController.text.trim().toLowerCase())) {
+                  user['phone']?.toString().toLowerCase() ==
+                  _phoneNumberController.text.trim().toLowerCase())) {
             if (!mounted) return;
 
             CustomSnackBar.showError(
@@ -239,7 +235,6 @@ class _Signup extends State<Signup> {
 
         // Navigate directly to HomePage after successful signup
         Navigator.pushNamed(context, '/login');
-
       } catch (e) {
         debugPrint('Error during registration: $e');
         CustomSnackBar.showError(
@@ -249,5 +244,4 @@ class _Signup extends State<Signup> {
       }
     }
   }
-
 }

@@ -125,7 +125,6 @@ class _PlacesScreenState extends State<PlacesScreen> {
                   crossAxisCount: 2, childAspectRatio: 0.65),
               itemBuilder: (context, index) => LandmarkCard(
                 place: PlacesData().suggestedPlaces()[index],
-                isFromFav: false,
               ),
             ),
           ),
@@ -157,7 +156,6 @@ class _PlacesScreenState extends State<PlacesScreen> {
               itemBuilder: (context, index) {
                 return LandmarkCard(
                   place: PlacesData().popularPlaces()[index],
-                  isFromFav: false,
                 );
               },
             ),
