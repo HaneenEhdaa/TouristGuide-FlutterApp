@@ -5,9 +5,11 @@ import 'package:tourist_guide/core/utils/user_manager.dart';
 import 'package:tourist_guide/data/models/landmark_model.dart';
 import 'package:tourist_guide/data/places_data/places_data.dart';
 
+// ignore: must_be_immutable
 class FavoriteButton extends StatefulWidget {
   LandMark place;
-  FavoriteButton({super.key, required this.place});
+  final VoidCallback refresh;
+  FavoriteButton({super.key, required this.place, required this.refresh});
 
   @override
   State<FavoriteButton> createState() => _FavoriteButtonState();
@@ -16,6 +18,8 @@ class FavoriteButton extends StatefulWidget {
 // Displays the favorite icon, allowing users to mark/unmark a place as a favorite.
 // Updates the favorite status both in the local list and in shared preferences.
 class _FavoriteButtonState extends State<FavoriteButton> {
+  List<String> favPlaces = [];
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -42,11 +46,12 @@ class _FavoriteButtonState extends State<FavoriteButton> {
                   setState(() {
                     PlacesData.kLandmarks[int.parse(widget.place.id)].fav =
                         !widget.place.fav;
-                    List<String> favPlaces = UserManager().getFavPlaces();
+                    // favPlaces = UserManager().getFavPlaces();
                     !widget.place.fav
                         ? favPlaces.add(widget.place.id)
                         : favPlaces.remove(widget.place.id);
                     UserManager().setFavPlaces(ids: favPlaces);
+                    widget.refresh();
                   });
                 },
               ),

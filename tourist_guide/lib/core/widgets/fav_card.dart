@@ -6,7 +6,8 @@ import 'package:tourist_guide/data/models/landmark_model.dart';
 
 class FavCard extends StatefulWidget {
   final LandMark place;
-  const FavCard({super.key, required this.place});
+  final VoidCallback refresh;
+  const FavCard({super.key, required this.place, required this.refresh});
 
   @override
   State<FavCard> createState() => _FavCardState();
@@ -20,7 +21,8 @@ class _FavCardState extends State<FavCard> {
         width: 0.85.sw,
         height: 0.7.sh,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.white, // Background color
+
           borderRadius: BorderRadius.circular(25),
         ),
         child: Stack(
@@ -31,7 +33,7 @@ class _FavCardState extends State<FavCard> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  FavoriteButton(place: widget.place),
+                  FavoriteButton(place: widget.place, refresh: widget.refresh),
                   const Expanded(child: SizedBox()),
                   _aboutPlace(
                     widget.place.name,

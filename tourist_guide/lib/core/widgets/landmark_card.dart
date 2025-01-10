@@ -30,7 +30,8 @@ class _LandmarkCardState extends State<LandmarkCard> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  FavoriteButton(place: widget.place),
+                  FavoriteButton(
+                      place: widget.place, refresh: () => setState(() {})),
                   const Expanded(child: SizedBox()),
                   _aboutPlace(
                     widget.place.name,

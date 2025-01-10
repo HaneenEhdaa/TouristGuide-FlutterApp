@@ -42,6 +42,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                     left: index == 0 ? 10.w : 0, right: 10.w),
                                 child: FavCard(
                                   place: Fav_list[index],
+                                  refresh: () => setState(() {
+                                    Fav_list = PlacesData().favoritePlaces();
+                                  }),
                                 ),
                               );
                             },
