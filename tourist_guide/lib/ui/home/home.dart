@@ -35,7 +35,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return PageView(
       controller: _pageController,
       physics: const NeverScrollableScrollPhysics(),
-<<<<<<< HEAD
       children: [
         const PlacesScreen(),
         const GovernmentsScreen(),
@@ -53,14 +52,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
          ProfileScreen(),
         //const ProfileScreen(),
-=======
+
       children: const [
         PlacesScreen(),
         GovernorateScreen(),
         FavoritesScreen(),
         ProfileScreen(),
         ProfileScreen(),
->>>>>>> 0faaec3378b09d848f5be0c0b8cf71ea103dc48a
       ],
     );
   }
