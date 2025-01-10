@@ -2,24 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourist_guide/core/colors/colors.dart';
 import 'package:tourist_guide/core/widgets/favorite_btn.dart';
+import 'package:tourist_guide/data/models/governorate_model.dart';
 import 'package:tourist_guide/data/models/landmark_model.dart';
 
-class LandmarkCard extends StatefulWidget {
-  final LandMark place;
+class GovernorateCard extends StatefulWidget {
+  final Governorate governorate;
   final Function(LandMark)? onRemove;
-  final bool isFromFav;
-  const LandmarkCard({
+  const GovernorateCard({
     super.key,
-    required this.place,
-    required this.isFromFav,
+    required this.governorate,
     this.onRemove,
   });
 
   @override
-  State<LandmarkCard> createState() => _LandmarkCardState();
+  State<GovernorateCard> createState() => _GovernorateCardState();
 }
 
-class _LandmarkCardState extends State<LandmarkCard> {
+class _GovernorateCardState extends State<GovernorateCard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -35,17 +34,12 @@ class _LandmarkCardState extends State<LandmarkCard> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  FavoriteButton(
-                    place: widget.place,
-                    isFromFav: widget.isFromFav,
-                    onRemove: widget.onRemove,
-                  ),
                   const Expanded(child: SizedBox()),
-                  _aboutPlace(
-                    widget.place.name,
-                    widget.place.governorate,
-                    widget.place.rate,
-                  ),
+                  // _aboutPlace(
+                  //   widget.governorate.name,
+                  //   widget.governorate.governorate,
+                  //   widget.governorate.rate,
+                  // ),
                 ],
               ),
             )
@@ -61,12 +55,12 @@ class _LandmarkCardState extends State<LandmarkCard> {
     return InkWell(
       onTap: () {
         Navigator.pushNamed(context, '/details',
-            arguments: {'landMark': widget.place});
+            arguments: {'landMark': widget.governorate});
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
         child: Image(
-          image: widget.place.imgPath[0].image,
+          image: widget.governorate.imgPath[0].image,
           height: 1.sh,
           width: 1.sw,
           fit: BoxFit.cover,

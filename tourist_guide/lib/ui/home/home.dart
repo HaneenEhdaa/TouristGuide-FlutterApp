@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
       physics: const NeverScrollableScrollPhysics(),
       children: [
         const PlacesScreen(),
-        const GovernmentsScreen(),
+        const GovernorateScreen(),
         FavoritesScreen(
           onNavigate: (index) {
             _pageController.animateToPage(
