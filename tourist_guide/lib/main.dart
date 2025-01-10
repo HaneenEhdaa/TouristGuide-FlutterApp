@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           fontFamily: 'Suwannaphum',
         ),
-        home: HomeScreen(),
+        home: SplashScreen(),
         routes: {
           '/login': (context) => const Login(),
           '/signup': (context) => const Signup(),
