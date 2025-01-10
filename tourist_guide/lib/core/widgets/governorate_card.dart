@@ -35,11 +35,9 @@ class _GovernorateCardState extends State<GovernorateCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Expanded(child: SizedBox()),
-                  // _aboutPlace(
-                  //   widget.governorate.name,
-                  //   widget.governorate.governorate,
-                  //   widget.governorate.rate,
-                  // ),
+                  _aboutGov(
+                    widget.governorate.name,
+                  ),
                 ],
               ),
             )
@@ -69,17 +67,16 @@ class _GovernorateCardState extends State<GovernorateCard> {
     );
   }
 
-// Displays the name, governorate, and rating of the place in a card format,
-// with appropriate icons for location and rating.
-  Widget _aboutPlace(String name, String gov, String rate) {
+// Displays governorate
+  Widget _aboutGov(String name,) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: Container(
-        height: 0.09.sh,
-        width: ScreenUtil().screenWidth - 12,
+        width: 0.3.sw,
+        height: 0.04.sh,
         decoration: detailsBoxTheme(15),
         padding: const EdgeInsets.all(8),
-        child: Column(
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -91,51 +88,11 @@ class _GovernorateCardState extends State<GovernorateCard> {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Flexible(
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.place_rounded,
-                        color: kLightBlack,
-                        size: 0.020.sh,
-                      ),
-                      SizedBox(width: 4.w),
-                      Expanded(
-                        child: Text(
-                          gov,
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: kLightBlack,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.star_rounded,
-                      color: kLightBlack,
-                      size: 0.020.sh,
-                      // 18,
-                    ),
-                    SizedBox(width: 4.w),
-                    Text(
-                      rate,
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: kLightBlack,
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            )
+            Icon(
+              Icons.place_rounded,
+              color: kLightBlack,
+              size: 0.020.sh,
+            ),
           ],
         ),
       ),
