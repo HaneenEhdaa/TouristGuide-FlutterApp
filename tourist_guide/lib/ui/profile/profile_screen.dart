@@ -6,7 +6,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tourist_guide/core/utils/user_manager.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/colors/colors.dart';
 import '../../data/models/user_model.dart';
 import 'edit_profile.dart';
@@ -199,43 +198,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ]),
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Center(
-          child: const Text('Profile Screen'),
-        ),
-        SizedBox(height: 200),
-        ElevatedButton(
-          onPressed: () async {
-            final prefs = await SharedPreferences.getInstance();
-            await prefs.setBool('isLoggedIn', false);
-            if (!mounted) return;
-            Navigator.pushNamed(context, '/login');
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: kMainColor,
-            padding: const EdgeInsets.symmetric(
-              vertical: 12,
-              horizontal: 16,
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40),
-            ),
-            elevation: 0,
-          ),
-          child: const Text(
-            'Log out',
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.white,
-            ),
-          ),
-
         ),
       ),
     );
+  }
+ void _logout() async {
+    UserManager.logout();
+    Navigator.pushNamedAndRemoveUntil(
+        context, '/login', (Route<dynamic> route) => false);
   }
 }
