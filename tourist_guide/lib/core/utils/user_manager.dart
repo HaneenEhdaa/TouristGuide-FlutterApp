@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserManager {
-  static late SharedPreferences prefs;
-  static const String kFavListKey = 'fav';
   static const String USERS_KEY = 'users_list';
   static const String CURRENT_USER_KEY = 'current_user';
   static const String IS_LOGGED_IN_KEY = 'isLoggedIn';
 
+  static late SharedPreferences prefs;
+  static const String kFavListKey = 'fav';
   // Initializes the SharedPreferences instance and sets up default values if
   // certain keys don't exist.
-  void init() async {
+  Future<void> init() async {
     debugPrint('=====\nInit\n=====');
     prefs = await SharedPreferences.getInstance();
     if (!prefs.containsKey('fav')) await prefs.setStringList('fav', []);

@@ -43,16 +43,22 @@ class _FavoriteButtonState extends State<FavoriteButton> {
                 ),
                 color: kMainColor,
                 onPressed: () {
-                  setState(() {
-                    PlacesData.kLandmarks[int.parse(widget.place.id)].fav =
-                        !widget.place.fav;
-                    // favPlaces = UserManager().getFavPlaces();
-                    !widget.place.fav
-                        ? favPlaces.add(widget.place.id)
-                        : favPlaces.remove(widget.place.id);
-                    UserManager().setFavPlaces(ids: favPlaces);
-                    widget.refresh();
-                  });
+                  // Id of current place
+                  int id = int.parse(widget.place.id);
+                  // Change value of fav from kLandmarks list
+                  PlacesData.kLandmarks[id].fav = !widget.place.fav;
+                  // Get the Ids of fav places from shared prefs
+                  // and put them in favPlaces
+                  favPlaces = UserManager().getFavPlaces();
+                  // Update the favPlaces by add or remove a place
+                  PlacesData.kLandmarks[id].fav
+                      ? favPlaces.add(widget.place.id)
+                      : favPlaces.remove(widget.place.id);
+                  // Save the favPlaces after update
+                  UserManager().setFavPlaces(ids: favPlaces);
+                  // Check if this update comming from FavoritesScreen,
+                  // if yes, then update the list
+                  setState(() {});
                 },
               ),
             ),

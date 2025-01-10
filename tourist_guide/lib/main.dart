@@ -8,6 +8,8 @@ import 'package:tourist_guide/ui/auth/signup.dart';
 import 'package:tourist_guide/ui/home/splash.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  UserManager().init();
   runApp(const MyApp());
 }
 
@@ -16,8 +18,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    UserManager().init();
-
     return ScreenUtilInit(
       designSize: const Size(390, 844),
       minTextAdapt: true,
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           fontFamily: 'Suwannaphum',
         ),
-        home: SplashScreen(),
+        home: HomeScreen(),
         routes: {
           '/login': (context) => const Login(),
           '/signup': (context) => const Signup(),
