@@ -9,13 +9,14 @@ import '../auth/signup.dart';
 import 'home.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with TickerProviderStateMixin {
   late AnimationController _controller;
   bool isLoggedIn = false;
   bool isLoading = true;
@@ -60,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
       CustomPageRoute(
         child: isLoggedIn ? const HomeScreen() : const Signup(),
         type: PageTransitionType.slideUp, // or any other type
-        duration: const Duration(seconds: 3),
+        duration: const Duration(seconds: 2),
         curve: Curves.easeInOutCubic,
       ),
     );

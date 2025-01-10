@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourist_guide/core/colors/colors.dart';
-import 'package:tourist_guide/core/widgets/favoriteButton.dart';
+import 'package:tourist_guide/core/widgets/favorite_btn.dart';
 import 'package:tourist_guide/data/models/landmark_model.dart';
 
 class FavCard extends StatefulWidget {
@@ -33,7 +33,10 @@ class _FavCardState extends State<FavCard> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  FavoriteButton(place: widget.place, refresh: widget.refresh),
+                  FavoriteButton(
+                    place: widget.place,
+                    isFromFav: false,
+                  ),
                   const Expanded(child: SizedBox()),
                   _aboutPlace(
                     widget.place.name,

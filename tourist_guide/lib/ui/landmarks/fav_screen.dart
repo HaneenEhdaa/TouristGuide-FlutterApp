@@ -1,82 +1,104 @@
-import 'package:tourist_guide/core/widgets/fav_card.dart';
+import 'package:tourist_guide/core/colors/colors.dart';
+import 'package:tourist_guide/core/widgets/landmark_card.dart';
 import 'package:tourist_guide/data/models/landmark_model.dart';
 import 'package:tourist_guide/data/places_data/places_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FavoritesScreen extends StatefulWidget {
-  const FavoritesScreen({super.key});
+  final void Function(int)? onNavigate;
+  const FavoritesScreen({super.key, this.onNavigate});
 
   @override
   State<FavoritesScreen> createState() => _FavoritesScreenState();
 }
 
 class _FavoritesScreenState extends State<FavoritesScreen> {
-  List<LandMark> Fav_list = PlacesData().favoritePlaces();
+  late List<LandMark> favPlaces;
 
-  Widget build(BuildContext context) {
-    return ScreenUtilInit(
-        designSize: const Size(360, 690),
-        minTextAdapt: true,
-        splitScreenMode: true,
-        builder: (context, child) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text("Favorite Places"),
-              backgroundColor: Colors.white,
-            ),
-            body: PlacesData().favoritePlaces().isEmpty
-                ? _noFav()
-                : SizedBox(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Flexible(
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: PlacesData().favoritePlaces().length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: EdgeInsets.only(
-                                    left: index == 0 ? 10.w : 0, right: 10.w),
-                                child: FavCard(
-                                  place: Fav_list[index],
-                                  refresh: () => setState(() {
-                                    Fav_list = PlacesData().favoritePlaces();
-                                  }),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-            backgroundColor: Colors.white,
-          );
-        });
+  @override
+  void initState() {
+    super.initState();
+    favPlaces = PlacesData().favoritePlaces();
   }
 
-  Widget _noFav() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.favorite_outline,
-            color: Color.fromARGB(170, 222, 114, 84),
-            size: 150,
+  void _removeFromFav(LandMark landmark) {
+    setState(() {
+      favPlaces.remove(landmark);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.all(12.0.r),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Favorite Places", style: TextStyle(fontSize: 18.sp)),
+              PlacesData().favoritePlaces().isEmpty
+                  ? _emptyFavWidget()
+                  : _favWidget(),
+            ],
           ),
-          Text(
-            "Add Your Favorite Places",
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.w500,
-              fontSize: 18.sp,
+        ),
+      ),
+    );
+  }
+
+  Widget _emptyFavWidget() {
+    return Expanded(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.favorite_outline,
+              color: kMainColor,
+              size: 0.08.sh,
             ),
-          )
-        ],
+            SizedBox(height: 0.02.sh),
+            GestureDetector(
+              onTap: () {
+                widget.onNavigate!(0);
+              },
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(text: "Your Favorite List is Empty! "),
+                    TextSpan(
+                      text: "Explore Places",
+                      style: TextStyle(color: Colors.blue),
+                    ),
+                  ],
+                ),
+                style: TextStyle(fontSize: 16.sp),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _favWidget() {
+    return Expanded(
+      child: ListView.builder(
+        padding: EdgeInsets.only(top: 30.h, bottom: 30.h),
+        scrollDirection: Axis.horizontal,
+        itemCount: favPlaces.length,
+        itemBuilder: (context, index) {
+          return SizedBox(
+            width: ScreenUtil().screenWidth - 0.1.sw,
+            child: LandmarkCard(
+              place: favPlaces[index],
+              isFromFav: true,
+              onRemove: _removeFromFav,
+            ),
+          );
+        },
       ),
     );
   }

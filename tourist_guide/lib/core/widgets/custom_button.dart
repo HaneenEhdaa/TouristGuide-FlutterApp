@@ -12,21 +12,21 @@ class CustomButton extends StatelessWidget {
   final double? borderRadius;
 
   const CustomButton({
-    Key? key,
+    super.key,
     required this.text,
     required this.onPressed,
     this.width,
     this.height,
     this.fontSize,
     this.borderRadius,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     // Default responsive values optimized for 390x844
-    final defaultWidth = 351.w;     // 90% of 390
-    final defaultHeight = 50.h;     // Standard height for 844
-    final defaultFontSize = 16.sp;  // Standard font size
+    final defaultWidth = 351.w; // 90% of 390
+    final defaultHeight = 50.h; // Standard height for 844
+    final defaultFontSize = 16.sp; // Standard font size
     final defaultBorderRadius = 25.r; // Rounded corners
 
     // Use provided values or defaults
@@ -35,7 +35,7 @@ class CustomButton extends StatelessWidget {
     final buttonFontSize = fontSize ?? defaultFontSize;
     final buttonBorderRadius = borderRadius ?? defaultBorderRadius;
 
-    return Container(
+    return SizedBox(
       width: buttonWidth.clamp(117.w, 351.w), // 30% to 90% of 390
       height: buttonHeight.clamp(42.h, 67.h), // 5% to 8% of 844
       child: ElevatedButton(
@@ -43,7 +43,7 @@ class CustomButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: kMainColor,
           padding: REdgeInsets.symmetric(
-            vertical: 10.h,   // Vertical padding
+            vertical: 10.h, // Vertical padding
             horizontal: 15.w, // Horizontal padding
           ),
           shape: RoundedRectangleBorder(

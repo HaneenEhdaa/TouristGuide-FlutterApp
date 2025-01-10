@@ -3,15 +3,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourist_guide/core/colors/colors.dart';
-import 'package:tourist_guide/core/widgets/favoriteButton.dart';
+import 'package:tourist_guide/core/widgets/favorite_btn.dart';
 import 'package:tourist_guide/core/widgets/landmark_card.dart';
 import 'package:tourist_guide/data/models/landmark_model.dart';
 import 'package:tourist_guide/data/places_data/places_data.dart';
 
 class DetailsScreen extends StatefulWidget {
-  DetailsScreen({
-    super.key,
-  });
+  const DetailsScreen({super.key});
 
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();
@@ -92,7 +90,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                       TextStyle(fontWeight: FontWeight.w600, fontSize: 18.sp),
                 ),
               ),
-              PlacesData().similiarPlaces(landMark).isNotEmpty
+              PlacesData().nearbyPlaces(landMark).isNotEmpty
                   ? FadeTransition(
                       opacity: _fadeAnimations[3],
                       child: _similiarPlaces(landMark))
@@ -171,11 +169,9 @@ class _DetailsScreenState extends State<DetailsScreen>
         ),
         _backButton(context),
         Positioned(
-          right: 15,
-          bottom: 10,
-          child:
-              FavoriteButton(place: landMark, refresh: () => setState(() {})),
-        ),
+            right: 15,
+            bottom: 10,
+            child: FavoriteButton(place: landMark, isFromFav: false)),
       ],
     );
   }
@@ -210,12 +206,14 @@ class _DetailsScreenState extends State<DetailsScreen>
           height: 250.h,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: PlacesData().similiarPlaces(landmark).length,
+            itemCount: PlacesData().nearbyPlaces(landmark).length,
             itemBuilder: (context, index) {
               return SizedBox(
                 width: 200.w,
                 child: LandmarkCard(
-                    place: PlacesData().similiarPlaces(landmark)[index]),
+                  place: PlacesData().nearbyPlaces(landmark)[index],
+                  isFromFav: false,
+                ),
               );
             },
           ),

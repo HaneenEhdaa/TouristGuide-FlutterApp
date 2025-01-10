@@ -5,12 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 import '../../core/colors/colors.dart';
 import '../../core/widgets/custom_button.dart';
 import '../../core/widgets/custom_snack_bar.dart';
 import '../../core/widgets/custom_text_form_field.dart';
-
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -136,7 +134,6 @@ class _LoginState extends State<Login> {
     );
   }
 
-
   Future<void> _login() async {
     if (_formKey.currentState!.validate()) {
       try {
@@ -167,8 +164,9 @@ class _LoginState extends State<Login> {
         );
 
         final user = usersList.firstWhere(
-              (user) =>
-          user['email'].toString().toLowerCase() == _emailController.text.toLowerCase() &&
+          (user) =>
+              user['email'].toString().toLowerCase() ==
+                  _emailController.text.toLowerCase() &&
               user['password'] == _passwordController.text,
           orElse: () => {},
         );
@@ -205,7 +203,8 @@ class _LoginState extends State<Login> {
         if (!mounted) return;
 
         // Navigate to HomePage
-        Navigator.pushNamed(context, '/home');
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/home', (Route<dynamic> route) => false);
       } catch (e) {
         CustomSnackBar.showCustom(
           context: context,
@@ -226,6 +225,7 @@ class _LoginState extends State<Login> {
       );
     }
   }
+
   Future<void> logout(BuildContext context) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', false);
@@ -235,7 +235,6 @@ class _LoginState extends State<Login> {
 
     Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
   }
-
 
   Future<void> checkStoredData() async {
     final prefs = await SharedPreferences.getInstance();

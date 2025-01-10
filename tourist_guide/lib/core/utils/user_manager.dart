@@ -92,8 +92,21 @@ class UserManager {
     await prefs.clear();
   }
 
+  // Get first name
+  Future<String> loadUserName() async {
+    String name = '';
+    final userString = prefs.getString('current_user');
+    if (userString != null) {
+      final userData = json.decode(userString);
+      if (userData['name'] != null) {
+        name = userData['name'].toString().split(' ')[0];
+      }
+    }
+    return name;
+  }
+
   // Saves a list of favorite place IDs to SharedPreferences.
-  void setFavPlaces({required List<String> ids}) async {
+  Future<void> updateFavPlaces({required List<String> ids}) async {
     await prefs.setStringList(kFavListKey, ids);
   }
 

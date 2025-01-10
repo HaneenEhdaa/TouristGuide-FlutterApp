@@ -35,11 +35,23 @@ class _HomeScreenState extends State<HomeScreen> {
     return PageView(
       controller: _pageController,
       physics: const NeverScrollableScrollPhysics(),
-      children: const [
-        PlacesScreen(),
-        GovernmentsScreen(),
-        FavoritesScreen(),
-        ProfileScreen(),
+      children: [
+        const PlacesScreen(),
+        const GovernmentsScreen(),
+        FavoritesScreen(
+          onNavigate: (index) {
+            _pageController.animateToPage(
+              index,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+            );
+            setState(() {
+              pageIndex = index;
+            });
+          },
+        ),
+        const ProfileScreen(),
+        const ProfileScreen(),
       ],
     );
   }

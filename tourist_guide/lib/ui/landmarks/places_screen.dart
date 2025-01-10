@@ -1,8 +1,7 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tourist_guide/core/colors/colors.dart';
+import 'package:tourist_guide/core/utils/user_manager.dart';
 import 'package:tourist_guide/core/widgets/landmark_card.dart';
 import 'package:tourist_guide/data/places_data/places_data.dart';
 
@@ -14,26 +13,17 @@ class PlacesScreen extends StatefulWidget {
 }
 
 class _PlacesScreenState extends State<PlacesScreen> {
-  String userName = 'User'; // Default value
+  String userName = 'User';
 
   @override
   void initState() {
     super.initState();
-    loadUserName();
+    _loadUserName();
   }
 
-  Future<void> loadUserName() async {
-    final prefs = await SharedPreferences.getInstance();
-    final userString = prefs.getString('current_user');
-    if (userString != null) {
-      final userData = json.decode(userString);
-      if (userData['name'] != null) {
-        setState(() {
-          // Get first name only
-          userName = userData['name'].toString().split(' ')[0];
-        });
-      }
-    }
+  void _loadUserName() async {
+    userName = await UserManager().loadUserName();
+    setState(() {});
   }
 
 // The main UI of the PlacesScreen is built with padding and two main components:
@@ -100,7 +90,6 @@ class _PlacesScreenState extends State<PlacesScreen> {
     );
   }
 
-  // Rest of your widgets remain the same...
   Widget _body() {
     return Expanded(
       child: Column(
@@ -134,8 +123,10 @@ class _PlacesScreenState extends State<PlacesScreen> {
               itemCount: PlacesData().suggestedPlaces().length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2, childAspectRatio: 0.65),
-              itemBuilder: (context, index) =>
-                  LandmarkCard(place: PlacesData().suggestedPlaces()[index]),
+              itemBuilder: (context, index) => LandmarkCard(
+                place: PlacesData().suggestedPlaces()[index],
+                isFromFav: false,
+              ),
             ),
           ),
         ],
@@ -164,7 +155,10 @@ class _PlacesScreenState extends State<PlacesScreen> {
               scrollDirection: Axis.horizontal,
               itemCount: PlacesData().popularPlaces().length,
               itemBuilder: (context, index) {
-                return LandmarkCard(place: PlacesData().popularPlaces()[index]);
+                return LandmarkCard(
+                  place: PlacesData().popularPlaces()[index],
+                  isFromFav: false,
+                );
               },
             ),
           ),
