@@ -1,16 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tourist_guide/core/utils/user_manager.dart';
-=======
 import 'package:shared_preferences/shared_preferences.dart';
->>>>>>> 0faaec3378b09d848f5be0c0b8cf71ea103dc48a
-
 import '../../core/colors/colors.dart';
 import '../../data/models/user_model.dart';
 import 'edit_profile.dart';
@@ -26,7 +22,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-<<<<<<< HEAD
+
   var user = User(email: "", id: "", name: "", password: "", phone: "");
   Future<void> _getData() async {
     final prefs = await SharedPreferences.getInstance();
@@ -202,7 +198,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               },
             ),
           ]),
-=======
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -237,7 +233,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               color: Colors.white,
             ),
           ),
->>>>>>> 0faaec3378b09d848f5be0c0b8cf71ea103dc48a
+
         ),
       ),
     );
