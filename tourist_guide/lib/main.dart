@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourist_guide/core/utils/user_manager.dart';
 import 'package:tourist_guide/ui/auth/login.dart';
+import 'package:tourist_guide/ui/governorate/governorate_details.dart';
 import 'package:tourist_guide/ui/home/home.dart';
 import 'package:tourist_guide/ui/auth/signup.dart';
 import 'package:tourist_guide/ui/home/splash.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
           '/splash': (context) => const SplashScreen(),
           '/home': (context) => const HomeScreen(),
           '/details': (context) =>  DetailsScreen(),
+          '/governate_detials' : (context) => GovernorateDetails()
         },
       ),
     );

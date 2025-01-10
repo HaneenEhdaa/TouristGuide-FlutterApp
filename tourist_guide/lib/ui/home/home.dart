@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourist_guide/core/colors/colors.dart';
 import 'package:tourist_guide/ui/landmarks/fav_screen.dart';
-import 'package:tourist_guide/ui/landmarks/govs_screen.dart';
+import 'package:tourist_guide/ui/governorate/govs_screen.dart';
 import 'package:tourist_guide/ui/landmarks/places_screen.dart';
 import 'package:tourist_guide/ui/profile/profile_screen.dart';
 

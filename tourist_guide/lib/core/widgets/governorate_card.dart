@@ -28,7 +28,7 @@ class _GovernorateCardState extends State<GovernorateCard> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
         child: Stack(
           children: [
-            _cardImg(),
+            _cardImg(widget.governorate.name),
             Padding(
               padding: EdgeInsets.all(10.0.r),
               child: Column(
@@ -49,11 +49,11 @@ class _GovernorateCardState extends State<GovernorateCard> {
 
 // Displays the image of the place inside a ClipRRect widget with a rounded border.
 // Tapping on the image navigates to the place details page.
-  Widget _cardImg() {
+  Widget _cardImg(String GovName) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, '/details',
-            arguments: {'landMark': widget.governorate});
+        Navigator.pushNamed(context, '/governate_detials',
+            arguments: GovName);
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
