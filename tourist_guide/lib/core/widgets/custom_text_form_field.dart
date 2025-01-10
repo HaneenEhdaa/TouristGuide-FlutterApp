@@ -326,7 +326,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         child: TextFormField(
           cursorColor: kMainColor,
           controller: widget.controller,
-          style: TextStyle(fontSize: 14.sp),
+          style: TextStyle(fontSize: 17.sp),
           onChanged: (value) {
             if (widget.fieldType == 'password') {
               _updatePasswordRequirements(value);
@@ -342,7 +342,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 : widget.hintText,
             labelStyle: TextStyle(
               color: kMainColor,
-              fontSize: 14.sp,
+              fontSize: 16.sp,
             ),
             prefixIcon: widget.fieldType == 'phone'
                 ? GestureDetector(
@@ -354,23 +354,23 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   children: [
                     Text(
                       _selectedCountry?.flagEmoji ?? '🌍',
-                      style: TextStyle(fontSize: 16.sp),
+                      style: TextStyle(fontSize: 18.sp),
                     ),
                     SizedBox(width: 4.w),
                     Text(
                       '+${_selectedCountry?.phoneCode ?? ''}',
                       style: TextStyle(
                         color: kMainColor,
-                        fontSize: 14.sp,
+                        fontSize: 16.sp,
                       ),
                     ),
                     Icon(Icons.arrow_drop_down,
-                        color: kMainColor, size: 20.w),
+                        color: kMainColor, size: 25.w),
                   ],
                 ),
               ),
             )
-                : Icon(widget.prefixIcon, color: kMainColor, size: 20.w),
+                : Icon(widget.prefixIcon, color: kMainColor, size: 24.w),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(40.r),
             ),
@@ -401,7 +401,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               icon: Icon(
                 _obscureText ? Icons.visibility : Icons.visibility_off,
                 color: kMainColor,
-                size: 20.w,
+                size: 24.w,
               ),
               onPressed: () {
                 setState(() {

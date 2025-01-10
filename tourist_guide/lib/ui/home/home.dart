@@ -50,8 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
             });
           },
         ),
-        const ProfileScreen(),
-        const ProfileScreen(),
+         ProfileScreen(),
+        //const ProfileScreen(),
       ],
     );
   }
