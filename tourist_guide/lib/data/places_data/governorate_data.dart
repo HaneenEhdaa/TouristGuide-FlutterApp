@@ -10,6 +10,6 @@ class GovernorateData {
     Governorate(
         imgPath: [Image.asset('assets/images/Karnak.jpg')], name: 'Luxor'),
     Governorate(
-        imgPath: [Image.asset('assets/images/Karnak.jpg')], name: 'Minya')
+        imgPath: [Image.asset('assets/images/minya1.jpg')], name: 'Minya')
   ];
 }

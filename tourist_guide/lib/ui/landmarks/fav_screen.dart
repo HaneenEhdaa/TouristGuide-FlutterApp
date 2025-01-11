@@ -12,8 +12,9 @@ class FavoritesScreen extends StatefulWidget {
 }
 
 class _FavoritesScreenState extends State<FavoritesScreen> {
-  List<LandMark> Fav_list = PlacesData().favoritePlaces();
+  List<LandMark> favList = PlacesData().favoritePlaces();
 
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -43,9 +44,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                               padding: EdgeInsets.only(
                                   left: index == 0 ? 10.w : 0, right: 10.w),
                               child: FavCard(
-                                place: Fav_list[index],
+                                place: favList[index],
                                 refresh: () => setState(() {
-                                  Fav_list = PlacesData().favoritePlaces();
+                                  favList = PlacesData().favoritePlaces();
                                 }),
                               ),
                             );

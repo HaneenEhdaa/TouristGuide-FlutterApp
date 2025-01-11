@@ -48,10 +48,10 @@ class _GovernorateCardState extends State<GovernorateCard> {
 
 // Displays the image of the place inside a ClipRRect widget with a rounded border.
 // Tapping on the image navigates to the place details page.
-  Widget _cardImg(String GovName) {
+  Widget _cardImg(String govName) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, '/governate_detials', arguments: GovName);
+        Navigator.pushNamed(context, '/governate_detials', arguments: govName);
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),

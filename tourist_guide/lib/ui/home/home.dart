@@ -36,7 +36,18 @@ class _HomeScreenState extends State<HomeScreen> {
       controller: _pageController,
       physics: const NeverScrollableScrollPhysics(),
       children: [
-        const PlacesScreen(),
+        PlacesScreen(
+          onNavigate: (index) {
+            _pageController.animateToPage(
+              index,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+            );
+            setState(() {
+              pageIndex = index;
+            });
+          },
+        ),
         const GovernorateScreen(),
         const FavoritesScreen(),
         ProfileScreen(),

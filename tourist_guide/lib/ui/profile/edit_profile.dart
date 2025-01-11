@@ -11,11 +11,11 @@ import '../../core/widgets/custom_text_form_field.dart';
 import '../../data/models/user_model.dart';
 
 class EditProfile extends StatefulWidget {
-  String name;
-  String email;
-  String password;
-  String phone;
-  EditProfile(
+  final String name;
+  final String email;
+  final String password;
+  final String phone;
+  const EditProfile(
       {super.key,
       required this.name,
       required this.email,
@@ -63,8 +63,6 @@ class _EditProfile extends State<EditProfile> {
     // Calculate responsive sizes
     final verticalSpacing = screenHeight * 0.03; // 3% of screen height
     final horizontalPadding = screenWidth * 0.04; // 4% of screen width
-    final titleFontSize = screenWidth * 0.08; // 8% of screen width
-    final buttonHeight = screenHeight * 0.08; // 8% of screen height
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -80,19 +78,24 @@ class _EditProfile extends State<EditProfile> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Edit Profile !',
-                      style: TextStyle(
-                        color: CupertinoColors.black,
-                        fontSize: 29.sp,
-                        fontWeight: FontWeight.bold,
+                  SizedBox(height: 15.h),
+                  Row(
+                    children: [
+                      _backButton(context),
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Edit Profile !',
+                            style: TextStyle(
+                              color: CupertinoColors.black,
+                              fontSize: 29.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                   SizedBox(height: 10.h),
                   Text(
@@ -164,6 +167,17 @@ class _EditProfile extends State<EditProfile> {
     );
   }
 
+  Widget _backButton(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.of(context).pop(),
+      child: Image.asset(
+        'assets/images/arrowBack.png',
+        width: 40.w,
+        height: 40.h,
+      ),
+    );
+  }
+
 // func to save new edits by deleting the current user and save  new values to it
   Future<void> _saveEdits() async {
     if (_formKey.currentState!.validate()) {
@@ -207,11 +221,11 @@ class _EditProfile extends State<EditProfile> {
           context: context,
           message: 'Eidted successfully!',
         );
-        Navigator.of(context).pushReplacement(
+        Navigator.of(context).pop(
           MaterialPageRoute(builder: (context) => ProfileScreen()),
         );
       } catch (e) {
-        print('Error during Edit: $e');
+        debugPrint('Error during Edit: $e');
         CustomSnackBar.showError(
           context: context,
           message: 'Edit failed: ${e.toString()}',
