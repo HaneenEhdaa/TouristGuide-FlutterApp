@@ -9,19 +9,10 @@ class GovernorateDetails extends StatelessWidget {
 
   const GovernorateDetails({super.key});
 
-  List<LandMark> getLandmarks(String gov) {
-    List<LandMark> list = PlacesData.kLandmarks
-        .where(
-          (landmark) => landmark.governorate.toLowerCase() == gov.toLowerCase(),
-        )
-        .toList();
-    return list;
-  }
-
   @override
   Widget build(BuildContext context) {
     String argument = ModalRoute.of(context)!.settings.arguments as String;
-    List<LandMark> landmarks = getLandmarks(argument);
+    List<LandMark> landmarks = PlacesData().getGoverLandmarks(argument);
     return Scaffold(
       body: SafeArea(
         child: Padding(
