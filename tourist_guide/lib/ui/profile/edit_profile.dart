@@ -207,7 +207,7 @@ class _EditProfile extends State<EditProfile> {
           context: context,
           message: 'Eidted successfully!',
         );
-        Navigator.of(context).pushReplacement(
+        Navigator.of(context).pop(
           MaterialPageRoute(builder: (context) => ProfileScreen()),
         );
       } catch (e) {

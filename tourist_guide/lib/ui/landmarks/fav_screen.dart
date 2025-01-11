@@ -33,23 +33,24 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       ),
                     ),
                     Flexible(
-                      child: Container(
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: PlacesData().favoritePlaces().length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: EdgeInsets.only(
-                                  left: index == 0 ? 10.w : 0, right: 10.w),
-                              child: FavCard(
-                                place: Fav_list[index],
-                                refresh: () => setState(() {
-                                  Fav_list = PlacesData().favoritePlaces();
-                                }),
-                              ),
-                            );
-                          },
-                        ),
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: PlacesData().favoritePlaces().length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: REdgeInsets.only(
+                                left: index == 0 ? 30 : 10,
+                                right: 10,
+                                top: 10,
+                                bottom: 20),
+                            child: FavCard(
+                              place: Fav_list[index],
+                              refresh: () => setState(() {
+                                Fav_list = PlacesData().favoritePlaces();
+                              }),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ],
