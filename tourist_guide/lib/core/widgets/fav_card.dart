@@ -19,7 +19,7 @@ class _FavCardState extends State<FavCard> {
     return Center(
       child: Container(
         width: 0.85.sw,
-        height: 0.7.sh,
+        // height: 0.6.sh,
         decoration: BoxDecoration(
           color: Colors.white, // Background color
 
@@ -61,7 +61,7 @@ class _FavCardState extends State<FavCard> {
         borderRadius: BorderRadius.circular(20),
         child: Image(
           image: widget.place.imgPath[0].image,
-          height: 0.7.sh,
+          height: 1.sh,
           width: 0.85.sw,
           fit: BoxFit.cover,
         ),

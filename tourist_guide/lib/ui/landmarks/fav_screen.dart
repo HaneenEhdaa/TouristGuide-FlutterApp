@@ -15,47 +15,49 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   List<LandMark> Fav_list = PlacesData().favoritePlaces();
 
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-        designSize: const Size(360, 690),
-        minTextAdapt: true,
-        splitScreenMode: true,
-        builder: (context, child) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text("Favorite Places"),
-              backgroundColor: Colors.white,
-            ),
-            body: PlacesData().favoritePlaces().isEmpty
-                ? _noFav()
-                : SizedBox(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Flexible(
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: PlacesData().favoritePlaces().length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: EdgeInsets.only(
-                                    left: index == 0 ? 10.w : 0, right: 10.w),
-                                child: FavCard(
-                                  place: Fav_list[index],
-                                  refresh: () => setState(() {
-                                    Fav_list = PlacesData().favoritePlaces();
-                                  }),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ],
+    return SafeArea(
+      child: Scaffold(
+        body: PlacesData().favoritePlaces().isEmpty
+            ? _noFav()
+            : SizedBox(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 8.h),
+                    Center(
+                      child: Text(
+                        "Favorite Places",
+                        style: TextStyle(
+                            fontSize: 28.sp, fontWeight: FontWeight.bold),
+                      ),
                     ),
-                  ),
-            backgroundColor: Colors.white,
-          );
-        });
+                    Flexible(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 24.h),
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: PlacesData().favoritePlaces().length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: EdgeInsets.only(
+                                  left: index == 0 ? 10.w : 0, right: 10.w),
+                              child: FavCard(
+                                place: Fav_list[index],
+                                refresh: () => setState(() {
+                                  Fav_list = PlacesData().favoritePlaces();
+                                }),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+      ),
+    );
   }
 
   Widget _noFav() {

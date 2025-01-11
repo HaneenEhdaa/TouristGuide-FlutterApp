@@ -122,7 +122,9 @@ class _PlacesScreenState extends State<PlacesScreen> {
               padding: EdgeInsets.zero,
               itemCount: PlacesData().suggestedPlaces().length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, childAspectRatio: 0.65),
+                crossAxisCount: 2,
+                childAspectRatio: 0.65,
+              ),
               itemBuilder: (context, index) => LandmarkCard(
                 place: PlacesData().suggestedPlaces()[index],
               ),

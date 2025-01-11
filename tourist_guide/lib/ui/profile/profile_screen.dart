@@ -21,7 +21,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
   var user = User(email: "", id: "", name: "", password: "", phone: "");
   Future<void> _getData() async {
     final prefs = await SharedPreferences.getInstance();
@@ -87,7 +86,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               alignment: Alignment.center,
               child: Text("My Profile",
                   style:
-                      TextStyle(fontSize: 29.sp, fontWeight: FontWeight.bold)),
+                      TextStyle(fontSize: 28.sp, fontWeight: FontWeight.bold)),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
@@ -197,12 +196,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               },
             ),
           ]),
-
         ),
       ),
     );
   }
- void _logout() async {
+
+  void _logout() async {
     UserManager.logout();
     Navigator.pushNamedAndRemoveUntil(
         context, '/login', (Route<dynamic> route) => false);

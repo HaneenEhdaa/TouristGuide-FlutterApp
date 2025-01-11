@@ -9,34 +9,35 @@ class GovernorateScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 0.02.sh,
-        ),
-        Text(
-          'Governorates',
-          style: TextStyle(
-            fontSize: 34.sp,
-            fontWeight: FontWeight.bold,
-            overflow: TextOverflow.ellipsis,
+    return SafeArea(
+      child: Column(
+        children: [
+          SizedBox(height: 8.h),
+          Text(
+            'Governorates',
+            style: TextStyle(
+              fontSize: 28.sp,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-        SizedBox(
-          height: 0.02.sh,
-        ),
-        Expanded(
-          child: GridView.builder(
-            padding: EdgeInsets.zero,
-            itemCount: GovernorateData.governorateList.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, childAspectRatio: 0.65),
-            itemBuilder: (context, index) =>
-                GovernorateCard(governorate: GovernorateData.governorateList[index],
-                )
+          SizedBox(height: 0.03.sh),
+          Expanded(
+            child: Container(
+              // padding: EdgeInsets.symmetric(vertical: 16.h),
+              child: GridView.builder(
+                  padding: EdgeInsets.zero,
+                  itemCount: GovernorateData.governorateList.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.60,
+                  ),
+                  itemBuilder: (context, index) => GovernorateCard(
+                        governorate: GovernorateData.governorateList[index],
+                      )),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
