@@ -58,7 +58,8 @@ class _FavoriteButtonState extends State<FavoriteButton> {
                   UserManager().setFavPlaces(ids: favPlaces);
                   // Check if this update comming from FavoritesScreen,
                   // if yes, then update the list
-                  setState(() {});
+                  widget.refresh();
+                  
                 },
               ),
             ),
