@@ -56,7 +56,7 @@ class UserManager {
       }
       return false;
     } catch (e) {
-      print('Error updating user: $e');
+      debugPrint('Error updating user: $e');
       return false;
     }
   }
@@ -76,7 +76,7 @@ class UserManager {
       }
       return true;
     } catch (e) {
-      print('Error deleting user: $e');
+      debugPrint('Error deleting user: $e');
       return false;
     }
   }
@@ -92,7 +92,7 @@ class UserManager {
     await prefs.clear();
   }
 
-  // Get first name
+// Get first name
   Future<String> loadUserName() async {
     String name = '';
     final userString = prefs.getString('current_user');
@@ -105,7 +105,7 @@ class UserManager {
     return name;
   }
 
-  // Saves a list of favorite place IDs to SharedPreferences.
+// Saves a list of favorite place IDs to SharedPreferences.
   Future<void> setFavPlaces({required List<String> ids}) async {
     await prefs.setStringList(kFavListKey, ids);
   }
@@ -113,5 +113,14 @@ class UserManager {
 // Retrieves the list of favorite place IDs.
   List<String> getFavPlaces() {
     return prefs.getStringList(kFavListKey)!;
+  }
+
+// Get User Image
+  String getImg() {
+    final imagePath = prefs.getString('img');
+    if (imagePath != null) {
+      return imagePath;
+    }
+    return '';
   }
 }

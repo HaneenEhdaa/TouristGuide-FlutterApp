@@ -10,7 +10,9 @@ import 'package:tourist_guide/data/models/landmark_model.dart';
 import 'package:tourist_guide/data/places_data/places_data.dart';
 
 class DetailsScreen extends StatefulWidget {
-  DetailsScreen({super.key});
+  const DetailsScreen({
+    super.key,
+  });
 
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();

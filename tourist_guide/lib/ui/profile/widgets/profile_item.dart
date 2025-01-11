@@ -4,32 +4,37 @@ import 'package:tourist_guide/core/colors/colors.dart';
 
 // custom resuable widget implements every row in profile
 class ProfileItem extends StatelessWidget {
-  String txt;
-  IconData icon;
-  bool? isObscure;
-  ProfileItem(
-      {super.key, required this.txt, required this.icon, this.isObscure});
+  final String txt;
+  final IconData icon;
+  final bool? isObscure;
+  const ProfileItem({
+    super.key,
+    required this.txt,
+    required this.icon,
+    this.isObscure,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(
-        isObscure == true ? txt : '${txt.replaceAll(RegExp(r"."), "*")}',
+        isObscure == true ? txt : txt.replaceAll(RegExp(r"."), "*"),
         style: TextStyle(
           fontSize: 18.sp,
           fontWeight: FontWeight.w600,
         ),
       ),
       leading: Container(
-          padding: EdgeInsets.all(9).w,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: kMainColor,
-          ),
-          child: Icon(
-            icon,
-            color: Colors.white,
-          )),
+        padding: EdgeInsets.all(9).w,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: kMainColor,
+        ),
+        child: Icon(
+          icon,
+          color: Colors.white,
+        ),
+      ),
     );
   }
 }

@@ -6,41 +6,69 @@ import 'package:tourist_guide/data/places_data/places_data.dart';
 
 class GovernorateDetails extends StatelessWidget {
   static const routeName = '/governate_detials';
-  List<LandMark> landmarks = [];
-  GovernorateDetails({super.key});
+
+  const GovernorateDetails({super.key});
 
   List<LandMark> getLandmarks(String gov) {
     List<LandMark> list = PlacesData.kLandmarks
-        .where((landmark) =>
-            landmark.governorate.toLowerCase() == gov.toLowerCase())
+        .where(
+          (landmark) => landmark.governorate.toLowerCase() == gov.toLowerCase(),
+        )
         .toList();
-    print(list);
     return list;
   }
 
   @override
   Widget build(BuildContext context) {
     String argument = ModalRoute.of(context)!.settings.arguments as String;
-    landmarks = getLandmarks(argument);
+    List<LandMark> landmarks = getLandmarks(argument);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Land Marks in ${argument}',
-          style: TextStyle(
-            fontSize: 24.sp,
-            fontWeight: FontWeight.bold,
-            overflow: TextOverflow.ellipsis,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(8.r, 8.r, 8.r, 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                children: [
+                  _backButton(context),
+                  Expanded(
+                    child: Text(
+                      'Land Marks in $argument',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 28.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 0.02.sh),
+              Expanded(
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  itemCount: landmarks.length,
+                  itemBuilder: (context, index) => SizedBox(
+                    height: 0.3.sh,
+                    child: LandmarkCard(place: landmarks[index]),
+                  ),
+                ),
+              )
+            ],
           ),
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(20),
-        child: Row(
-          children: [
-            Expanded(child: LandmarkCard(place: landmarks[0])),
-            Expanded(child: LandmarkCard(place: landmarks[1]))
-          ],
-        ),
+    );
+  }
+
+  Widget _backButton(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.of(context).pop(),
+      child: Image.asset(
+        'assets/images/arrowBack.png',
+        width: 40.w,
+        height: 40.h,
       ),
     );
   }

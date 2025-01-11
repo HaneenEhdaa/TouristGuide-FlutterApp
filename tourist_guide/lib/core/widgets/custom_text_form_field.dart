@@ -17,7 +17,7 @@ class CustomTextField extends StatefulWidget {
   final String fieldType;
 
   const CustomTextField({
-    Key? key,
+    super.key,
     required this.labelText,
     required this.hintText,
     required this.prefixIcon,
@@ -27,7 +27,7 @@ class CustomTextField extends StatefulWidget {
     this.isPassword = false,
     this.passwordController,
     required this.fieldType,
-  }) : super(key: key);
+  });
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -36,7 +36,6 @@ class CustomTextField extends StatefulWidget {
 class _CustomTextFieldState extends State<CustomTextField> {
   bool _obscureText = true;
   Country? _selectedCountry;
-  bool _isPasswordFocused = false;
   OverlayEntry? _overlayEntry;
   final LayerLink _layerLink = LayerLink();
 
@@ -77,7 +76,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
       _passwordRequirements['Special'] =
           value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
 
-      bool allRequirementsMet = _passwordRequirements.values.every((met) => met);
+      bool allRequirementsMet =
+          _passwordRequirements.values.every((met) => met);
 
       if (allRequirementsMet && _overlayEntry != null) {
         Future.delayed(const Duration(milliseconds: 500), () {
@@ -152,11 +152,16 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     ),
                   ),
                   SizedBox(height: 8.h),
-                  _buildRequirement('At least 8 characters', _passwordRequirements['Length']!),
-                  _buildRequirement('At least one uppercase letter', _passwordRequirements['Uppercase']!),
-                  _buildRequirement('At least one lowercase letter', _passwordRequirements['Lowercase']!),
-                  _buildRequirement('At least one number', _passwordRequirements['Number']!),
-                  _buildRequirement('At least one special character', _passwordRequirements['Special']!),
+                  _buildRequirement('At least 8 characters',
+                      _passwordRequirements['Length']!),
+                  _buildRequirement('At least one uppercase letter',
+                      _passwordRequirements['Uppercase']!),
+                  _buildRequirement('At least one lowercase letter',
+                      _passwordRequirements['Lowercase']!),
+                  _buildRequirement(
+                      'At least one number', _passwordRequirements['Number']!),
+                  _buildRequirement('At least one special character',
+                      _passwordRequirements['Special']!),
                 ],
               ),
             ),
@@ -286,7 +291,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
         if (value == null || value.isEmpty) {
           return 'Please enter a password';
         }
-        bool isValid = _passwordRequirements.values.every((requirement) => requirement);
+        bool isValid =
+            _passwordRequirements.values.every((requirement) => requirement);
         if (!isValid) {
           return 'Please meet all password requirements';
         }
@@ -314,7 +320,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
         onFocusChange: (hasFocus) {
           if (widget.fieldType == 'password') {
             setState(() {
-              _isPasswordFocused = hasFocus;
               if (hasFocus) {
                 _createOverlay();
               } else {
@@ -346,30 +351,30 @@ class _CustomTextFieldState extends State<CustomTextField> {
             ),
             prefixIcon: widget.fieldType == 'phone'
                 ? GestureDetector(
-              onTap: _showCountryPicker,
-              child: Container(
-                padding: REdgeInsets.symmetric(horizontal: 12.w),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      _selectedCountry?.flagEmoji ?? '🌍',
-                      style: TextStyle(fontSize: 18.sp),
-                    ),
-                    SizedBox(width: 4.w),
-                    Text(
-                      '+${_selectedCountry?.phoneCode ?? ''}',
-                      style: TextStyle(
-                        color: kMainColor,
-                        fontSize: 16.sp,
+                    onTap: _showCountryPicker,
+                    child: Container(
+                      padding: REdgeInsets.symmetric(horizontal: 12.w),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            _selectedCountry?.flagEmoji ?? '🌍',
+                            style: TextStyle(fontSize: 18.sp),
+                          ),
+                          SizedBox(width: 4.w),
+                          Text(
+                            '+${_selectedCountry?.phoneCode ?? ''}',
+                            style: TextStyle(
+                              color: kMainColor,
+                              fontSize: 16.sp,
+                            ),
+                          ),
+                          Icon(Icons.arrow_drop_down,
+                              color: kMainColor, size: 25.w),
+                        ],
                       ),
                     ),
-                    Icon(Icons.arrow_drop_down,
-                        color: kMainColor, size: 25.w),
-                  ],
-                ),
-              ),
-            )
+                  )
                 : Icon(widget.prefixIcon, color: kMainColor, size: 24.w),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(40.r),
@@ -398,17 +403,17 @@ class _CustomTextFieldState extends State<CustomTextField> {
             ),
             suffixIcon: widget.isPassword
                 ? IconButton(
-              icon: Icon(
-                _obscureText ? Icons.visibility : Icons.visibility_off,
-                color: kMainColor,
-                size: 24.w,
-              ),
-              onPressed: () {
-                setState(() {
-                  _obscureText = !_obscureText;
-                });
-              },
-            )
+                    icon: Icon(
+                      _obscureText ? Icons.visibility : Icons.visibility_off,
+                      color: kMainColor,
+                      size: 24.w,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                  )
                 : null,
           ),
           keyboardType: widget.fieldType == 'phone'
@@ -419,10 +424,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
           validator: _validateField,
           inputFormatters: widget.fieldType == 'phone'
               ? [
-            FilteringTextInputFormatter.digitsOnly,
-            LengthLimitingTextInputFormatter(10),
-            PhoneNumberFormatter(),
-          ]
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(10),
+                  PhoneNumberFormatter(),
+                ]
               : null,
         ),
       ),
@@ -433,9 +438,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
 class PhoneNumberFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue,
-      TextEditingValue newValue,
-      ) {
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     if (newValue.text.isEmpty) {
       return newValue;
     }

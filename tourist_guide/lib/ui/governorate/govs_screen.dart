@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourist_guide/core/widgets/governorate_card.dart';
-import 'package:tourist_guide/data/models/governorate_model.dart';
 import 'package:tourist_guide/data/places_data/governorate_data.dart';
 
 class GovernorateScreen extends StatelessWidget {
@@ -22,7 +21,7 @@ class GovernorateScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 0.03.sh),
+            SizedBox(height: 0.02.sh),
             Expanded(
               child: GridView.builder(
                   padding: EdgeInsets.zero,

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourist_guide/core/colors/colors.dart';
@@ -6,7 +8,8 @@ import 'package:tourist_guide/core/widgets/landmark_card.dart';
 import 'package:tourist_guide/data/places_data/places_data.dart';
 
 class PlacesScreen extends StatefulWidget {
-  const PlacesScreen({super.key});
+  final void Function(int)? onNavigate;
+  const PlacesScreen({super.key, this.onNavigate});
 
   @override
   State<PlacesScreen> createState() => _PlacesScreenState();
@@ -14,15 +17,22 @@ class PlacesScreen extends StatefulWidget {
 
 class _PlacesScreenState extends State<PlacesScreen> {
   String userName = 'User';
+  String imgPath = '';
 
   @override
   void initState() {
     super.initState();
     _loadUserName();
+    _loadUserImg();
   }
 
   void _loadUserName() async {
     userName = await UserManager().loadUserName();
+    setState(() {});
+  }
+
+  void _loadUserImg() async {
+    imgPath = UserManager().getImg();
     setState(() {});
   }
 
@@ -73,14 +83,21 @@ class _PlacesScreenState extends State<PlacesScreen> {
                 ),
               ],
             ),
-            ClipOval(
-              child: Container(
-                height: 0.05.sh,
-                width: 0.05.sh,
-                color: kGrey,
-                child: Image.asset(
-                  'assets/images/card_bg.png',
-                  fit: BoxFit.fill,
+            GestureDetector(
+              onTap: () {
+                widget.onNavigate!(3);
+              },
+              child: ClipOval(
+                child: Container(
+                  height: 0.05.sh,
+                  width: 0.05.sh,
+                  color: kGrey,
+                  child: imgPath != ''
+                      ? Image.file(File(imgPath))
+                      : Image.asset(
+                          'assets/images/card_bg.png',
+                          fit: BoxFit.fill,
+                        ),
                 ),
               ),
             )
@@ -101,6 +118,7 @@ class _PlacesScreenState extends State<PlacesScreen> {
     );
   }
 
+// GridView of Suggested Places
   Widget _suggestedPlaces() {
     return SizedBox(
       height: 0.53.sh - 75,
@@ -135,6 +153,7 @@ class _PlacesScreenState extends State<PlacesScreen> {
     );
   }
 
+// List of Popular Places
   Widget _popularPlaces() {
     return SizedBox(
       height: 0.41.sh - 75,

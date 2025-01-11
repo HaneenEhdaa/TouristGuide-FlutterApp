@@ -13,9 +13,7 @@ import 'edit_profile.dart';
 import 'widgets/profile_item.dart';
 
 class ProfileScreen extends StatefulWidget {
-  ProfileScreen({
-    super.key,
-  });
+  const ProfileScreen({super.key});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -23,7 +21,6 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   SharedPreferences? prefs;
-  String? _imagePath;
   File? _image;
   User user = User(email: "", id: "", name: "", password: "", phone: "");
 
@@ -44,7 +41,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
 
     if (imagePath != null) {
-      _imagePath = imagePath;
       _image = File(imagePath);
     }
 
@@ -63,7 +59,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       prefs?.setString('img', savedImage.path);
 
       setState(() {
-        _imagePath = savedImage.path;
         _image = savedImage;
       });
     }
@@ -78,6 +73,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -174,14 +170,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 height: 100.h,
                 onPressed: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => EditProfile(
-                                name: user.name,
-                                email: user.email,
-                                password: user.password,
-                                phone: user.phone,
-                              )));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EditProfile(
+                        name: user.name,
+                        email: user.email,
+                        password: user.password,
+                        phone: user.phone,
+                      ),
+                    ),
+                  );
                 })
           ]),
         ),

@@ -3,9 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tourist_guide/core/colors/colors.dart';
+import 'package:tourist_guide/ui/auth/login.dart';
 
 import '../../core/widgets/custom_page_route.dart';
-import '../auth/signup.dart';
 import '../home/home.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -59,7 +59,7 @@ class _SplashScreenState extends State<SplashScreen>
     // Navigate to the appropriate screen with custom animation
     Navigator.of(context).pushReplacement(
       CustomPageRoute(
-        child: isLoggedIn ? const HomeScreen() : const Signup(),
+        child: isLoggedIn ? const HomeScreen() : const Login(),
         type: PageTransitionType.slideUp, // or any other type
         duration: const Duration(seconds: 2),
         curve: Curves.easeInOutCubic,

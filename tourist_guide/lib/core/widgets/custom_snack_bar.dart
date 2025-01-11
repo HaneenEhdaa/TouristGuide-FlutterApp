@@ -5,14 +5,14 @@ import 'package:animated_snack_bar/animated_snack_bar.dart';
 
 class CustomSnackBar {
   // Helper method to get responsive dimensions
-  static double _getResponsiveDimension(double percentage) {
-    return (percentage * 390).w; // Based on 390 design width
-  }
+  // static double _getResponsiveDimension(double percentage) {
+  //   return (percentage * 390).w; // Based on 390 design width
+  // }
 
   // Helper method to get responsive font size
-  static double _getResponsiveFontSize(double baseSize) {
-    return baseSize.sp;
-  }
+  // static double _getResponsiveFontSize(double baseSize) {
+  //   return baseSize.sp;
+  // }
 
   // Helper method to get responsive padding
   static EdgeInsets _getResponsivePadding() {
@@ -159,10 +159,10 @@ class CustomSnackBar {
   }
 
   // Optional: Add a method for handling different screen orientations
-  static MobileSnackBarPosition _getSnackBarPosition(BuildContext context) {
-    final orientation = MediaQuery.of(context).orientation;
-    return orientation == Orientation.portrait
-        ? MobileSnackBarPosition.bottom
-        : MobileSnackBarPosition.top;
-  }
+  // static MobileSnackBarPosition _getSnackBarPosition(BuildContext context) {
+  //   final orientation = MediaQuery.of(context).orientation;
+  //   return orientation == Orientation.portrait
+  //       ? MobileSnackBarPosition.bottom
+  //       : MobileSnackBarPosition.top;
+  // }
 }

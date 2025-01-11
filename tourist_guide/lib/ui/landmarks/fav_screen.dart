@@ -12,8 +12,9 @@ class FavoritesScreen extends StatefulWidget {
 }
 
 class _FavoritesScreenState extends State<FavoritesScreen> {
-  List<LandMark> Fav_list = PlacesData().favoritePlaces();
+  List<LandMark> favList = PlacesData().favoritePlaces();
 
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -33,24 +34,24 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       ),
                     ),
                     Flexible(
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: PlacesData().favoritePlaces().length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: REdgeInsets.only(
-                                left: index == 0 ? 30 : 10,
-                                right: 10,
-                                top: 10,
-                                bottom: 20),
-                            child: FavCard(
-                              place: Fav_list[index],
-                              refresh: () => setState(() {
-                                Fav_list = PlacesData().favoritePlaces();
-                              }),
-                            ),
-                          );
-                        },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 16.r),
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: PlacesData().favoritePlaces().length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: EdgeInsets.only(
+                                  left: index == 0 ? 10.w : 0, right: 10.w),
+                              child: FavCard(
+                                place: favList[index],
+                                refresh: () => setState(() {
+                                  favList = PlacesData().favoritePlaces();
+                                }),
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ), 
                   ],
