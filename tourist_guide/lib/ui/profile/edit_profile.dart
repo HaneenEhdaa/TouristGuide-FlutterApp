@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tourist_guide/ui/home/home.dart';
 import 'package:tourist_guide/ui/profile/profile_screen.dart';
 import '../../core/utils/user_manager.dart';
 import '../../core/widgets/custom_button.dart';
@@ -221,8 +222,9 @@ class _EditProfile extends State<EditProfile> {
           context: context,
           message: 'Eidted successfully!',
         );
-        Navigator.of(context).pop(
-          MaterialPageRoute(builder: (context) => ProfileScreen()),
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+          (route) => false,
         );
       } catch (e) {
         debugPrint('Error during Edit: $e');
