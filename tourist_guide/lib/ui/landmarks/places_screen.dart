@@ -26,6 +26,10 @@ class _PlacesScreenState extends State<PlacesScreen> {
     setState(() {});
   }
 
+  void _loadUserImg() async {
+    UserManager.getCurrentUser();
+  }
+
 // The main UI of the PlacesScreen is built with padding and two main components:
 // the header and body. The header displays a personalized greeting, and the body
 // contains two sections for places.
