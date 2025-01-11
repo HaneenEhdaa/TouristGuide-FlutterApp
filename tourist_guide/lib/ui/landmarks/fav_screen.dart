@@ -34,7 +34,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     ),
                     Flexible(
                       child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 24.h),
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: PlacesData().favoritePlaces().length,

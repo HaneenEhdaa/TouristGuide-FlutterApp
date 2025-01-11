@@ -59,8 +59,8 @@ class _FavoriteButtonState extends State<FavoriteButton> {
                   // Check if this update comming from FavoritesScreen,
                   // if yes, then update the list
 
-                  widget.refresh;
                   setState(() {});
+                  widget.refresh();
                 },
               ),
             ),
