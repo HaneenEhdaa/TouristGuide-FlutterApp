@@ -6,7 +6,7 @@ import 'package:tourist_guide/core/colors/colors.dart';
 
 import '../../core/widgets/custom_page_route.dart';
 import '../auth/signup.dart';
-import 'home.dart';
+import '../home/home.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

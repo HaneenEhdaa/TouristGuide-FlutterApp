@@ -5,7 +5,8 @@ import 'package:tourist_guide/ui/auth/login.dart';
 import 'package:tourist_guide/ui/governorate/governorate_details.dart';
 import 'package:tourist_guide/ui/home/home.dart';
 import 'package:tourist_guide/ui/auth/signup.dart';
-import 'package:tourist_guide/ui/home/splash.dart';
+import 'package:tourist_guide/ui/splash/splash.dart';
+import 'package:tourist_guide/ui/landmarks/details_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,13 +29,13 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           fontFamily: 'Suwannaphum',
         ),
-        home: HomeScreen(),
+        home: SplashScreen(),
         routes: {
+          '/splash': (context) => const SplashScreen(),
           '/login': (context) => const Login(),
           '/signup': (context) => const Signup(),
-          '/splash': (context) => const SplashScreen(),
           '/home': (context) => const HomeScreen(),
-          // '/details': (context) => DetailsScreen(),
+          '/details': (context) => DetailsScreen(),
           '/governate_detials': (context) => GovernorateDetails()
         },
       ),

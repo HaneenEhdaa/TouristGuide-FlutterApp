@@ -37,27 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
       physics: const NeverScrollableScrollPhysics(),
       children: [
         const PlacesScreen(),
-        const GovernmentsScreen(),
-        FavoritesScreen(
-          onNavigate: (index) {
-            _pageController.animateToPage(
-              index,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeInOut,
-            );
-            setState(() {
-              pageIndex = index;
-            });
-          },
-        ),
-         ProfileScreen(),
-        //const ProfileScreen(),
-
-      children: const [
-        PlacesScreen(),
-        GovernorateScreen(),
-        FavoritesScreen(),
-        ProfileScreen(),
+        const GovernorateScreen(),
+        const FavoritesScreen(),
         ProfileScreen(),
       ],
     );
@@ -66,27 +47,56 @@ class _HomeScreenState extends State<HomeScreen> {
 // Builds the curved navigation bar with icons for different screens. It allows
 // the user to switch between screens using a tap, and it animates the page transition.
   _curvedNavBar() {
-    return CurvedNavigationBar(
-      index: pageIndex,
-      backgroundColor: Colors.transparent,
-      color: kMainColor,
-      items: [
-        Icon(Icons.home_rounded, size: 30, color: kWhite),
-        Icon(Icons.place_rounded, size: 30, color: kWhite),
-        Icon(Icons.favorite_rounded, size: 30, color: kWhite),
-        Icon(Icons.person_rounded, size: 30, color: kWhite),
-      ],
-      onTap: (index) {
-        _pageController.animateToPage(
-          index,
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.bounceInOut,
-        );
+    return SizedBox(
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          CurvedNavigationBar(
+            index: pageIndex,
+            backgroundColor: Colors.transparent,
+            color: kMainColor,
+            items: [
+              Icon(Icons.home_rounded, size: 30, color: kWhite),
+              Icon(Icons.place_rounded, size: 30, color: kWhite),
+              Icon(Icons.favorite_rounded, size: 30, color: kWhite),
+              Icon(Icons.person_rounded, size: 30, color: kWhite),
+            ],
+            onTap: (index) {
+              _pageController.animateToPage(
+                index,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.bounceInOut,
+              );
 
-        setState(() {
-          pageIndex = index;
-        });
-      },
+              setState(() {
+                pageIndex = index;
+              });
+            },
+          ),
+          Padding(
+            padding: EdgeInsets.only(bottom: 8.r),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                _navBarTxt('Places'),
+                _navBarTxt('Governorates'),
+                _navBarTxt('Favorits'),
+                _navBarTxt('Profile'),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _navBarTxt(String txt) {
+    return Expanded(
+      child: Text(
+        txt,
+        textAlign: TextAlign.center,
+        style: TextStyle(color: kWhite, fontWeight: FontWeight.bold),
+      ),
     );
   }
 

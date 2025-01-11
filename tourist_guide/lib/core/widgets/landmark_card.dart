@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourist_guide/core/colors/colors.dart';
-import 'package:tourist_guide/core/utils/user_manager.dart';
 import 'package:tourist_guide/core/widgets/favoriteButton.dart';
 import 'package:tourist_guide/data/models/landmark_model.dart';
-import 'package:tourist_guide/data/places_data/places_data.dart';
 
 class LandmarkCard extends StatefulWidget {
   final LandMark place;
