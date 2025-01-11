@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tourist_guide/ui/home/home.dart';
-import 'package:tourist_guide/ui/profile/profile_screen.dart';
 import '../../core/utils/user_manager.dart';
 import '../../core/widgets/custom_button.dart';
 import '../../core/widgets/custom_snack_bar.dart';

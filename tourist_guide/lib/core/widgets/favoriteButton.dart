@@ -8,8 +8,8 @@ import 'package:tourist_guide/data/places_data/places_data.dart';
 // ignore: must_be_immutable
 class FavoriteButton extends StatefulWidget {
   LandMark place;
-  final VoidCallback refresh;
-  FavoriteButton({super.key, required this.place, required this.refresh});
+  final VoidCallback? refresh;
+  FavoriteButton({super.key, required this.place, this.refresh});
 
   @override
   State<FavoriteButton> createState() => _FavoriteButtonState();
@@ -60,7 +60,9 @@ class _FavoriteButtonState extends State<FavoriteButton> {
                   // if yes, then update the list
 
                   setState(() {});
-                  widget.refresh();
+                  if (widget.refresh != null) {
+                    widget.refresh!();
+                  }
                 },
               ),
             ),

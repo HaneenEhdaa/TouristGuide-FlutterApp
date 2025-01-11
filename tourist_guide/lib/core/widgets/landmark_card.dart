@@ -6,7 +6,9 @@ import 'package:tourist_guide/data/models/landmark_model.dart';
 
 class LandmarkCard extends StatefulWidget {
   final LandMark place;
-  const LandmarkCard({super.key, required this.place});
+  final VoidCallback? refresh;
+
+  const LandmarkCard({super.key, required this.place, this.refresh});
 
   @override
   State<LandmarkCard> createState() => _LandmarkCardState();
@@ -28,8 +30,7 @@ class _LandmarkCardState extends State<LandmarkCard> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  FavoriteButton(
-                      place: widget.place, refresh: () => setState(() {})),
+                  FavoriteButton(place: widget.place, refresh: widget.refresh),
                   const Expanded(child: SizedBox()),
                   _aboutPlace(
                     widget.place.name,

@@ -19,9 +19,12 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen>
-    with SingleTickerProviderStateMixin { //using singleTricler because using  one animation controller.
-  late final AnimationController _controller; // Controller for managing animations.
-  late final List<Animation<double>> _fadeAnimations; // Fade animations for various elements.
+    with SingleTickerProviderStateMixin {
+  //using singleTricler because using  one animation controller.
+  late final AnimationController
+      _controller; // Controller for managing animations.
+  late final List<Animation<double>>
+      _fadeAnimations; // Fade animations for various elements.
 
   @override
   void initState() {
@@ -70,7 +73,7 @@ class _DetailsScreenState extends State<DetailsScreen>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 50.h), 
+              SizedBox(height: 50.h),
               FadeTransition(
                 opacity: _fadeAnimations[0],
                 child: _coverImage(context, landMark), // Cover image widget

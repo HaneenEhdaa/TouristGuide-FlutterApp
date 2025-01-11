@@ -1,4 +1,4 @@
-import 'package:tourist_guide/core/widgets/fav_card.dart';
+import 'package:tourist_guide/core/widgets/landmark_card.dart';
 import 'package:tourist_guide/data/models/landmark_model.dart';
 import 'package:tourist_guide/data/places_data/places_data.dart';
 import 'package:flutter/material.dart';
@@ -12,14 +12,16 @@ class FavoritesScreen extends StatefulWidget {
 }
 
 class _FavoritesScreenState extends State<FavoritesScreen> {
+  // List of favorite landmarks retrieved from PlacesData
   List<LandMark> favList = PlacesData().favoritePlaces();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        // Checks if the favorite places list is empty
         body: PlacesData().favoritePlaces().isEmpty
-            ? _noFav()
+            ? _noFav() // Display placeholder if no favorites
             : SizedBox(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,17 +45,22 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                             return Padding(
                               padding: EdgeInsets.only(
                                   left: index == 0 ? 10.w : 0, right: 10.w),
-                              child: FavCard(
-                                place: favList[index],
-                                refresh: () => setState(() {
-                                  favList = PlacesData().favoritePlaces();
-                                }),
+                              child: SizedBox(
+                                width: 0.85.sw,
+                                // Displays each favorite place using LandmarkCard
+                                child: LandmarkCard(
+                                  place: favList[index],
+                                  // Refreshes the list of favorite places when a change is made
+                                  refresh: () => setState(() {
+                                    favList = PlacesData().favoritePlaces();
+                                  }),
+                                ),
                               ),
                             );
                           },
                         ),
                       ),
-                    ), 
+                    ),
                   ],
                 ),
               ),
@@ -61,6 +68,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     );
   }
 
+  // Widget displayed when there are no favorite places
   Widget _noFav() {
     return Center(
       child: Column(

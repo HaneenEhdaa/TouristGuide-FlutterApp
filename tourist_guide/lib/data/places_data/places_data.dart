@@ -183,6 +183,7 @@ The Karnak Temple Complex, commonly known as Karnak, comprises a vast mix of tem
     }
     return favoritePlaces;
   }
+
   List<LandMark> getGoverLandmarks(String gov) {
     List<LandMark> list = PlacesData.kLandmarks
         .where(
